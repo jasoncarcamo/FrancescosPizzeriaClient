@@ -3,7 +3,7 @@ import {View, Text, TextInput, Button} from "react-native"
 import UserService from "../../Services/UserToken/UserToken";
 import UserContext from "../../Services/UserContext/UserContext";
 
-export default class LoginUser extends React.Component{
+export default class Login extends React.Component{
     constructor(props){
         super(props);
         this.state = {

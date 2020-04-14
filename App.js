@@ -1,16 +1,21 @@
 import React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from 'react-native';
 import UserToken from "./src/Services/UserToken/UserToken";
 
 import UserContext from "./src/Services/UserContext/UserContext";
 import {UserProvider} from "./src/Services/UserContext/UserContext";
-import LoadingApp from "./src/Components/LoadingApp/LoadingApp";
-import HomeScreen from "./src/Components/HomeScreen/HomeScreen";
-import LoginUser from "./src/Components/LoginUser/LoginUser";
+import Order from "./src/Components/Order/Order";
+import Home from "./src/Components/Home/Home";
+import Register from "./src/Components/Register/Register";
+import Login from "./src/Components/Login/Login";
+import UserProfile from "./src/Components/UserProfile/UserProfile";
+import SignOut from "./src/Components/SignOut/SignOut";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default class App extends React.Component {
     constructor(props){
@@ -35,23 +40,20 @@ export default class App extends React.Component {
     }
 
     isLoggedIn = (context)=>{
+
         return (
             <>
-                <Stack.Screen
-                        name="Home">
-                    {()=> <HomeScreen context={context}/>}
-                </Stack.Screen>
+                <Drawer.Screen name="Profile" component={UserProfile}></Drawer.Screen>
+                <Drawer.Screen name="Sign out" component={SignOut}></Drawer.Screen>
             </>
-        )
+        );
     }
 
     notLoggedIn =(context)=>{
         return (
             <>
-                <Stack.Screen
-                        name="Login">
-                            {()=> <LoginUser context={context}/>}
-                        </Stack.Screen>
+                <Drawer.Screen name="Log in" component={Login}></Drawer.Screen>
+                <Drawer.Screen name="Sign up" component={Register}></Drawer.Screen>
             </>
         )
     }
@@ -60,18 +62,18 @@ export default class App extends React.Component {
         return (
                 <UserProvider>
                     <NavigationContainer>
-                        <Stack.Navigator>
-
-                            <Stack.Screen
-                                name="Home"
-                                component={HomeScreen}>
-                            </Stack.Screen>
-
-                            <Stack.Screen
-                                name="Login"
-                                component={LoginUser}>
-                            </Stack.Screen>
-                        </Stack.Navigator>
+                        <UserContext.Consumer>
+                            { context => (
+                                <>
+                                    <Drawer.Navigator>                            
+                                        <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
+                                        <Drawer.Screen name="Order" component={Order}></Drawer.Screen>
+                                        {context.isLoggedIn ? this.isLoggedIn() : this.notLoggedIn()}
+                                    </Drawer.Navigator>
+                                </>
+                                )
+                            }
+                        </UserContext.Consumer>
                     </NavigationContainer>
                 </UserProvider>
             );

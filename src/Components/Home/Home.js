@@ -3,7 +3,7 @@ import {View, Text, Button} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
 import UserContext from "../../Services/UserContext/UserContext";
 
-export default class HomeScreen extends React.Component{
+export default class Home extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -18,11 +18,7 @@ export default class HomeScreen extends React.Component{
     }
 
     handleSignOut = ()=>{
-        UserToken.deleteToken()
-            .then( deletedToken => {
-                console.log("Signing out!", this.props.context)
-                this.context.refreshApp();
-            })
+        this.props.navigation.navigate("Sign out");
     }
 
     isLoggedIn = ()=>{
@@ -37,7 +33,7 @@ export default class HomeScreen extends React.Component{
     }
 
     toLogIn = () => {
-        this.props.navigation.navigate("Login");
+        this.props.navigation.navigate("Log in");
     }
 
     render(){
