@@ -111,7 +111,7 @@ export default class Register extends React.Component{
                 UserToken.saveToken(resData.token)
                     .then( savedToken => {
                         
-                        this.context.refreshApp()
+                        this.context.refreshUserContext()
                             .then( isLoggedIn => {
                                 this.props.navigation.navigate("Profile")
                             });

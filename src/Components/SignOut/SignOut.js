@@ -16,7 +16,7 @@ export default class SignOut extends React.Component{
     handleSignOut = ()=>{
         UserToken.deleteToken()
             .then( deletedToken => {
-                this.context.refreshApp();
+                this.context.refreshUserContext();
                 this.props.navigation.navigate("Home");
             })
     }

@@ -50,7 +50,7 @@ export default class Login extends React.Component{
 
                 UserService.saveToken( resData.token)
                     .then( savedToken => {
-                        this.context.refreshApp()   
+                        this.context.refreshUserContext()   
                             .then( isLoggedIn => {
                                 console.log(isLoggedIn);
                                 this.props.navigation.navigate("Profile")
