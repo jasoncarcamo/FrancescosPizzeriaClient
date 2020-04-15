@@ -1,6 +1,4 @@
 import React from "react";
-import {Text, View, button} from "react-native";
-import UserContext from "../UserContext/UserContext";
 
 const MenuContext = React.createContext({
     menuItems: [],
@@ -17,6 +15,7 @@ export class MenuProvider extends React.Component{
         }
     }
 
+    
     componentDidMount(){
         fetch("https://localhost:5001/api/menuitems")
             .then( res => {
@@ -40,11 +39,11 @@ export class MenuProvider extends React.Component{
         const value = {
             menuItems: this.state.menuItems
         }
-
+        
         return (
-            <UserContext.Provider value={value}>
+            <MenuContext.Provider value={value}>
                 {this.props.children}
-            </UserContext.Provider>
+            </MenuContext.Provider>
         )
     }
 }

@@ -46,8 +46,6 @@ export class UserProvider extends React.Component{
             refreshApp: this.refreshApp
         };
 
-        console.log(this.state)
-
         return (
             <UserContext.Provider value={value}>
                 {this.props.children}

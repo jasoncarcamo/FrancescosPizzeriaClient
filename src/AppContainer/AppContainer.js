@@ -1,11 +1,8 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import { StyleSheet, Text, View } from 'react-native';
-import UserToken from "../Services/UserToken/UserToken";
 
 import UserContext from "../Services/Context/Usercontext/UserContext";
-import AppContext from "../Services/Context/AppContext/AppContext";
 import Order from "../Components/Order/Order";
 import Home from "../Components/Home/Home";
 import Register from "../Components/Register/Register";
@@ -15,7 +12,7 @@ import SignOut from "../Components/SignOut/SignOut";
 
 const Drawer = createDrawerNavigator();
 
- class AppContainer extends React.Component{
+export default class AppContainer extends React.Component{
     constructor(props){
         super(props);
         this.state ={
@@ -23,14 +20,9 @@ const Drawer = createDrawerNavigator();
         }
     }
 
-    componentDidMount(){
-    }
-    
-    refreshApp = ()=>{
-        this.componentDidMount();
-    }
+    static contextType = UserContext;
 
-    isLoggedIn = (context)=>{
+    isLoggedIn = ()=>{
 
         return (
             <>
@@ -40,7 +32,7 @@ const Drawer = createDrawerNavigator();
         );
     }
 
-    notLoggedIn =(context)=>{
+    notLoggedIn =()=>{
         return (
             <>
                 <Drawer.Screen name="Log in" component={Login}></Drawer.Screen>
@@ -63,7 +55,3 @@ const Drawer = createDrawerNavigator();
         )
     }
 }
-
-AppContainer.contextType = UserContext;
-
-export default AppContainer;

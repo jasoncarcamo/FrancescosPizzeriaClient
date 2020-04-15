@@ -2,6 +2,7 @@ import React from "react";
 import {View, Text, Button} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
 import UserContext from "../../Services/Context/Usercontext/UserContext";
+import MenuContext from "../../Services/Context/MenuContext/MenuContext";
 
 export default class Home extends React.Component{
     constructor(props){
@@ -36,7 +37,7 @@ export default class Home extends React.Component{
     }
 
     render(){
-
+        console.log(this.context);
         return (
             <View>
                 <Text>Open up App.js to start working on your app!</Text>
