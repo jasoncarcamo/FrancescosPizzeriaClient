@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, View, Button, TextInput} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/Context/Usercontext/UserContext";
+import UserContext from "../../Services/Context/UserContext/UserContext";
 
 export default class Register extends React.Component{
     constructor(props){

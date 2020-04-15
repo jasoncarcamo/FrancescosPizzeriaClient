@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, View, Button} from "react-native";
-import UserContext from "../../Services/Context/Usercontext/UserContext";
+import UserContext from "../../Services/Context/UserContext/UserContext";
 import UserToken from "../../Services/UserToken/UserToken";
 
 export default class SignOut extends React.Component{

@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text} from "react-native";
-import UserContext from "../../Services/Context/Usercontext/UserContext";
+import UserContext from "../../Services/Context/UserContext/UserContext";
 import {createStackNavigator} from "@react-navigation/stack";
 
 const Stack = createStackNavigator();

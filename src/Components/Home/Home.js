@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, Button} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/Context/Usercontext/UserContext";
+import UserContext from "../../Services/Context/UserContext/UserContext";
 import MenuContext from "../../Services/Context/MenuContext/MenuContext";
 
 export default class Home extends React.Component{
