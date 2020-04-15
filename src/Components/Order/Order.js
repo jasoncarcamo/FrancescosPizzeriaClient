@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default class Order extends React.Component{
     render(){
         return (
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName="Order">
                 <Stack.Screen name="Order" component={OrderType}></Stack.Screen>
             </Stack.Navigator>
         )

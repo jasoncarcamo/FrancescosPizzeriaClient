@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, TextInput, Button} from "react-native"
 import UserService from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/UserContext/UserContext";
+import UserContext from "../../Services/Context/Usercontext/UserContext";
 
 export default class Login extends React.Component{
     constructor(props){
@@ -50,8 +50,11 @@ export default class Login extends React.Component{
 
                 UserService.saveToken( resData.token)
                     .then( savedToken => {
-                        this.context.refreshApp();
-                        this.props.navigation.navigate("Home")
+                        this.context.refreshApp()   
+                            .then( isLoggedIn => {
+                                console.log(isLoggedIn);
+                                this.props.navigation.navigate("Profile")
+                            });
                     })
                 
             })
@@ -59,7 +62,7 @@ export default class Login extends React.Component{
     }
 
     render(){
-        
+        console.log(this.context)
         return (
             <View>
                 <Text>hello from log in user screen token: {this.state.token}{this.state.error}</Text>

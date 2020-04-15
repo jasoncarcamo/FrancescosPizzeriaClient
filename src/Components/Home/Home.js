@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, Button} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/UserContext/UserContext";
+import UserContext from "../../Services/Context/Usercontext/UserContext";
 
 export default class Home extends React.Component{
     constructor(props){
@@ -14,7 +14,6 @@ export default class Home extends React.Component{
     static contextType = UserContext;
 
     componentDidMount(){
-
     }
 
     handleSignOut = ()=>{
@@ -37,15 +36,17 @@ export default class Home extends React.Component{
     }
 
     render(){
-        console.log(this.context)
+
         return (
             <View>
                 <Text>Open up App.js to start working on your app!</Text>
                 <Button
-                    title="Pick Up"></Button>
+                    title="Pick Up"
+                    onPress={() => {}}></Button>
                 
                 <Button
-                    title="Delivery"></Button>
+                    title="Delivery"
+                    onPress={()=> this.props.navigation.navigate("Profile")}></Button>
 
 
                 {this.context.isLoggedIn ? this.isLoggedIn() : this.isNotLoggedIn()}
