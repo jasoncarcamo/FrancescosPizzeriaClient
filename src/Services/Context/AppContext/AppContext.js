@@ -1,4 +1,5 @@
 import React from "react";
+import MenuContext from "../MenuContext/MenuContext";
 
 const AppContext = React.createContext({
     app: []
@@ -13,9 +14,12 @@ export class AppProvider extends React.Component{
         }
     }
 
+    static contextType = MenuContext;
+
     render(){
         const value = {
         };
+        console.log(this.context)
 
         return (
             <AppContext.Provider value={value}>
