@@ -37,7 +37,7 @@ export default class Home extends React.Component{
     }
 
     render(){
-        console.log(this.context);
+        
         return (
             <View>
                 <Text>Open up App.js to start working on your app!</Text>
