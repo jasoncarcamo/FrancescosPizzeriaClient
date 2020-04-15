@@ -1,5 +1,6 @@
 import React from "react";
 import MenuContext from "../MenuContext/MenuContext";
+import UserContext from "../UserContext/UserContext";
 
 const AppContext = React.createContext({
     menuContext: {},
@@ -19,7 +20,7 @@ export class AppProvider extends React.Component{
         }
     }
 
-    static contextType = MenuContext;
+    static contextType = UserContext;
 
     render(){
         const value = {
@@ -27,7 +28,7 @@ export class AppProvider extends React.Component{
             orderContext: this.props.orderContext,
             userContext: this.props.userContext
         };
-        console.log(value)
+        
 
         return (
             <AppContext.Provider value={value}>

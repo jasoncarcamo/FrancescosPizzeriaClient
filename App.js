@@ -24,7 +24,9 @@ export default class App extends React.Component {
                         <UserProvider>
                             <UserContext.Consumer>
                                 { userContext => (
-                                    <OrderProvider>
+                                    <OrderProvider
+                                    
+                                    userContext={userContext}>
                                         <OrderContext.Consumer>
                                             { orderContext => (
                                                 <AppProvider

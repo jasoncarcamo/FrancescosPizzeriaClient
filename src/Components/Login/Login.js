@@ -62,7 +62,7 @@ export default class Login extends React.Component{
     }
 
     render(){
-        console.log(this.context)
+        
         return (
             <View>
                 <Text>hello from log in user screen token: {this.state.token}{this.state.error}</Text>
