@@ -1,22 +1,25 @@
 import React from "react";
 import {Text, View, Button} from "react-native";
-import OrderContext from "../../../../Services/Context/OrderContext/OrderContext";
+import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
 export default class PickUpOptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-
+            orderType: "Pick up",
+            time: "",
+            address: "",
+            mobileNumber: ""
         }
     }
 
-    static contextType = OrderContext;
+    static contextType = AppContext;
 
     render(){
 
         return (
             <View>
-                <Text>ASAP</Text>
+                <Text>Pick up</Text>
 
                 <Button
                     title="ASAP"></Button>

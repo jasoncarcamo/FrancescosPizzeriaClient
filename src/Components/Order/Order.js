@@ -13,7 +13,9 @@ export default class Order extends React.Component{
     render(){
         
         return (
-            <Stack.Navigator initialRouteName="Order">
+            <Stack.Navigator initialRouteName="Order" screenOptions={{
+                
+            }}>
                 <Stack.Screen name="Order" component={OrderType}></Stack.Screen>
                 <Stack.Screen name="Delivery time" component={DeliveryOptions}></Stack.Screen>
                 <Stack.Screen name="Pick up time" component={PickUpOptions}></Stack.Screen>

@@ -6,8 +6,11 @@ const OrderContext = React.createContext({
     order: {},
     orderItems: [],
     isOrdering: false,
-    orderType: "",
     time: "",
+    address: "",
+    mobileNumber: "",
+    orderType: "",
+    orderComplete: false,
     setOrderType: ()=>{}
 })
 
@@ -20,8 +23,11 @@ export class OrderProvider extends React.Component{
             order: {},
             orderItems: [],
             isOrdering: false,
-            orderType: "",
             time: "",
+            address: "",
+            mobileNumber: "",
+            orderType: "",
+            orderComplete: false,
             error: ""
         }
     }
@@ -29,7 +35,7 @@ export class OrderProvider extends React.Component{
     static contextType = UserContext;
 
     UNSAFE_componentWillReceiveProps(){
-
+        console.log(this.props)
         if(this.props.userContext.isLoggedIn){
 
             UserToken.getToken()
@@ -55,7 +61,11 @@ export class OrderProvider extends React.Component{
                         this.setState({
                             order: resData.order,
                             orderType: resData.order.orderType,
-                            isOrdering: true
+                            isOrdering: true,
+                            time: resData.order.time,
+                            address: resData.order.address,
+                            mobileNumber: resData.order.mobileNumber,
+                            orderType: resData.order.orderType
                         });
 
                         fetch(`https://localhost:5001/api/orderitems/order/${resData.order.id}`, {
@@ -86,10 +96,12 @@ export class OrderProvider extends React.Component{
         }
     }
 
-    setOrderType = (orderType, when) => {
+    setOrderType = (order) => {
         this.setState({
-            orderType,
-            time: when != undefined ? when : ""
+            orderType: order.orderType,
+            time: order.time,
+            address: order.address,
+            mobileNumber: order.mobileNumber
         });
     }
 
@@ -102,12 +114,14 @@ export class OrderProvider extends React.Component{
             order: this.state.order,
             orderItems: this.state.orderItems,
             isOrdering: this.state.isOrdering,
-            orderType: this.state.orderType,
             time: this.state.time,
+            address: this.state.address,
+            mobileNumber: this.state.mobileNumber,
+            orderType: this.state.orderType,
+            orderComplete: this.state.orderComplete,
             setOrderType: this.setOrderType
         };
-        console.log(value);
-
+        console.log(value)
         return (
             <OrderContext.Provider value={value}>
                 {this.props.children}

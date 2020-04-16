@@ -48,7 +48,9 @@ export default class AppContainer extends React.Component{
 
         return (
             <NavigationContainer>
-                <Drawer.Navigator>                            
+                <Drawer.Navigator screenOptions={{
+                    unmountOnBlur: true
+                }}>                            
                     <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
                     <Drawer.Screen name="Menu" component={Menu}></Drawer.Screen>
                     <Drawer.Screen name="Order" component={Order}></Drawer.Screen>

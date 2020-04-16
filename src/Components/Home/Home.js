@@ -44,11 +44,11 @@ export default class Home extends React.Component{
                 <Text>Open up App.js to start working on your app!</Text>
                 <Button
                     title="Pick Up"
-                    onPress={() => {}}></Button>
+                    onPress={() => this.props.navigation.navigate("Order", { screen: "Pick up time", params: "Pick up time"})}></Button>
                 
                 <Button
                     title="Delivery"
-                    onPress={()=> this.props.navigation.navigate("Profile")}></Button>
+                    onPress={()=> this.props.navigation.navigate("Order", { screen: "Delivery time", params: "Delivery time"})}></Button>
 
 
                 {this.context.userContext.isLoggedIn ? this.isLoggedIn() : this.isNotLoggedIn()}
