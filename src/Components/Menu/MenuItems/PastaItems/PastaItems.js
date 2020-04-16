@@ -1,0 +1,39 @@
+import React from "react";
+import {View, Text, Button} from "react-native";
+import AppContext from "../../../../Services/Context/AppContext/AppContext";
+
+import PastaItem from "./PastaItem/PastaItem";
+
+export default class PastaItems extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            itemType: "Pasta"
+        }
+    }
+
+    static contextType = AppContext;
+
+    renderPastas = ()=>{
+        let items = this.context.menuContext.menuItems;
+
+        items = items.map( (item, index) => {
+            
+            if(item.category === this.state.itemType){
+
+                return <PastaItem key={index} item={item}/>;
+            };
+        });
+
+        return items;
+    }
+
+    render(){
+
+        return (
+            <View>
+                {this.renderPastas()}
+            </View>
+        )
+    }
+}
