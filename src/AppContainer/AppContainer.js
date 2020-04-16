@@ -6,6 +6,7 @@ import AppContext from "../Services/Context/AppContext/AppContext";
 import UserContext from "../Services/Context/UserContext/UserContext";
 import Order from "../Components/Order/Order";
 import Home from "../Components/Home/Home";
+import Menu from "../Components/Menu/Menu";
 import Register from "../Components/Register/Register";
 import Login from "../Components/Login/Login";
 import UserProfile from "../Components/UserProfile/UserProfile";
@@ -49,6 +50,7 @@ export default class AppContainer extends React.Component{
             <NavigationContainer>
                 <Drawer.Navigator>                            
                     <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
+                    <Drawer.Screen name="Menu" component={Menu}></Drawer.Screen>
                     <Drawer.Screen name="Order" component={Order}></Drawer.Screen>
                     {this.context.userContext.isLoggedIn ? this.isLoggedIn() : this.notLoggedIn()}
                 </Drawer.Navigator>

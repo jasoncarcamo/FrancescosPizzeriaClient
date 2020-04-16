@@ -113,7 +113,7 @@ export default class Register extends React.Component{
                         
                         this.context.userContext.refreshUserContext()
                             .then( isLoggedIn => {
-                                this.props.navigation.navigate("Profile")
+                                this.props.navigation.navigate("Profile");
                             });
                     })
             })
