@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, View, Button, TextInput} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/Context/UserContext/UserContext";
+import AppContext from "../../Services/Context/AppContext/AppContext";
 
 export default class Register extends React.Component{
     constructor(props){
@@ -20,7 +20,7 @@ export default class Register extends React.Component{
         };
     };
 
-    static contextType = UserContext;
+    static contextType = AppContext;
 
     componentDidMount(){
 
@@ -111,7 +111,7 @@ export default class Register extends React.Component{
                 UserToken.saveToken(resData.token)
                     .then( savedToken => {
                         
-                        this.context.refreshUserContext()
+                        this.context.userContext.refreshUserContext()
                             .then( isLoggedIn => {
                                 this.props.navigation.navigate("Profile")
                             });

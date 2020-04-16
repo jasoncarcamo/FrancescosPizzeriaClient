@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, TextInput, Button} from "react-native"
 import UserService from "../../Services/UserToken/UserToken";
-import UserContext from "../../Services/Context/UserContext/UserContext";
+import AppContext from "../../Services/Context/AppContext/AppContext";
 
 export default class Login extends React.Component{
     constructor(props){
@@ -13,7 +13,7 @@ export default class Login extends React.Component{
         }
     }
 
-    static contextType = UserContext;
+    static contextType = AppContext;
 
     handleEmail = (text)=>{
         this.setState({
@@ -50,7 +50,7 @@ export default class Login extends React.Component{
 
                 UserService.saveToken( resData.token)
                     .then( savedToken => {
-                        this.context.refreshUserContext()   
+                        this.context.userContext.refreshUserContext()   
                             .then( isLoggedIn => {
                                 console.log(isLoggedIn);
                                 this.props.navigation.navigate("Profile")

@@ -35,24 +35,24 @@ export class UserProvider extends React.Component{
                             'authorization': `bearer ${token}`
                         }
                     })
-                    .then( res => {
+                        .then( res => {
 
-                        if(!res.ok){
+                            if(!res.ok){
 
-                            return res.json().then( e => Promise.reject(e));
-                        };
+                                return res.json().then( e => Promise.reject(e));
+                            };
 
-                        return res.json();
-                    })
-                    .then( resData => {
-                        this.setState({
-                            user: resData.user
+                            return res.json();
                         })
-                    })
-                    .catch( err => this.setState({ 
-                        error: err.error, 
-                        isLoggedIn: false
-                    }));
+                        .then( resData => {
+                            this.setState({
+                                user: resData.user
+                            })
+                        })
+                        .catch( err => this.setState({ 
+                            error: err.error, 
+                            isLoggedIn: false
+                        }));
 
                 } else{
 

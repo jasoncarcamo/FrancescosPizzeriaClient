@@ -3,9 +3,12 @@ import UserContext from "../UserContext/UserContext";
 import UserToken from "../../UserToken/UserToken";
 
 const OrderContext = React.createContext({
-    order: [],
+    order: {},
     orderItems: [],
-    isOrdering: false
+    isOrdering: false,
+    orderType: "",
+    time: "",
+    setOrderType: ()=>{}
 })
 
 export default OrderContext;
@@ -14,25 +17,21 @@ export class OrderProvider extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            order: [],
+            order: {},
             orderItems: [],
             isOrdering: false,
+            orderType: "",
+            time: "",
             error: ""
         }
     }
 
     static contextType = UserContext;
 
-    componentDidMount(){
-        console.log("Mounted", this.props)
-        
-    }
-
-
     UNSAFE_componentWillReceiveProps(){
 
         if(this.props.userContext.isLoggedIn){
-            console.log("Mounted", this.context)
+
             UserToken.getToken()
                 .then( token => {
                     console.log("Hello")
@@ -52,10 +51,12 @@ export class OrderProvider extends React.Component{
                         return res.json();
                     })
                     .then( resData => {
-                        console.log(resData, "hello")
+
                         this.setState({
+                            order: resData.order,
+                            orderType: resData.order.orderType,
                             isOrdering: true
-                        })
+                        });
 
                         fetch(`https://localhost:5001/api/orderitems/order/${resData.order.id}`, {
                             headers: {
@@ -73,7 +74,9 @@ export class OrderProvider extends React.Component{
                                 return itemsRes.json();
                             })
                             .then( itemsData => {
-                                console.log(itemsData);
+                                this.setState({ 
+                                    orderItems: itemsData.orders
+                                });
                             })
                             .catch( itemsErr => this.setState({ error: itemsErr.error}));
                     })
@@ -81,6 +84,13 @@ export class OrderProvider extends React.Component{
 
                 });
         }
+    }
+
+    setOrderType = (orderType, when) => {
+        this.setState({
+            orderType,
+            time: when != undefined ? when : ""
+        });
     }
 
     startOrdering = ()=>{
@@ -91,9 +101,13 @@ export class OrderProvider extends React.Component{
         const value= {
             order: this.state.order,
             orderItems: this.state.orderItems,
-            isOrdering: this.state.isOrdering
+            isOrdering: this.state.isOrdering,
+            orderType: this.state.orderType,
+            time: this.state.time,
+            setOrderType: this.setOrderType
         };
-        console.log(this.props)
+        console.log(value);
+
         return (
             <OrderContext.Provider value={value}>
                 {this.props.children}

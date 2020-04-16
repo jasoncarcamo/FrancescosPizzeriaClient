@@ -8,10 +8,12 @@ export default class OrderType extends React.Component{
                 <Text>Order type</Text>
 
                 <Button
-                    title="Pick up"></Button>
+                    title="Pick up"
+                    onPress={()=> this.props.navigation.navigate("Pick up time")}></Button>
                 
                 <Button
-                    title="Delivery"></Button>
+                    title="Delivery"
+                    onPress={this.props.navigation.navigate("Delivery time")}></Button>
             </View>
         )
     }

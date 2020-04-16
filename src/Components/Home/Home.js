@@ -1,6 +1,7 @@
 import React from "react";
 import {View, Text, Button} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
+import AppContext from "../../Services/Context/AppContext/AppContext";
 import UserContext from "../../Services/Context/UserContext/UserContext";
 import MenuContext from "../../Services/Context/MenuContext/MenuContext";
 
@@ -12,7 +13,7 @@ export default class Home extends React.Component{
         }
     }
 
-    static contextType = UserContext;
+    static contextType = AppContext;
 
     componentDidMount(){
     }
@@ -50,7 +51,7 @@ export default class Home extends React.Component{
                     onPress={()=> this.props.navigation.navigate("Profile")}></Button>
 
 
-                {this.context.isLoggedIn ? this.isLoggedIn() : this.isNotLoggedIn()}
+                {this.context.userContext.isLoggedIn ? this.isLoggedIn() : this.isNotLoggedIn()}
             </View>
         )
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, View, Button} from "react-native";
-import UserContext from "../../Services/Context/UserContext/UserContext";
+import AppContext from "../../Services/Context/AppContext/AppContext";
 import UserToken from "../../Services/UserToken/UserToken";
 
 export default class SignOut extends React.Component{
@@ -11,12 +11,12 @@ export default class SignOut extends React.Component{
         };
     }
 
-    static contextType = UserContext;
+    static contextType = AppContext;
 
     handleSignOut = ()=>{
         UserToken.deleteToken()
             .then( deletedToken => {
-                this.context.refreshUserContext();
+                this.context.userContext.refreshUserContext();
                 this.props.navigation.navigate("Home");
             })
     }

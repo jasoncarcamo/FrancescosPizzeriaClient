@@ -2,6 +2,7 @@ import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 
+import AppContext from "../Services/Context/AppContext/AppContext";
 import UserContext from "../Services/Context/UserContext/UserContext";
 import Order from "../Components/Order/Order";
 import Home from "../Components/Home/Home";
@@ -20,7 +21,7 @@ export default class AppContainer extends React.Component{
         }
     }
 
-    static contextType = UserContext;
+    static contextType = AppContext;
 
     isLoggedIn = ()=>{
 
@@ -49,7 +50,7 @@ export default class AppContainer extends React.Component{
                 <Drawer.Navigator>                            
                     <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
                     <Drawer.Screen name="Order" component={Order}></Drawer.Screen>
-                    {this.context.isLoggedIn ? this.isLoggedIn() : this.notLoggedIn()}
+                    {this.context.userContext.isLoggedIn ? this.isLoggedIn() : this.notLoggedIn()}
                 </Drawer.Navigator>
             </NavigationContainer>
         )
