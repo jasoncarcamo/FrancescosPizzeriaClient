@@ -1,19 +1,23 @@
 import React from "react";
 import {Text, View, Button, TextInput} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default class PickUpOptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             orderType: "Pick up",
-            time: "",
+            date: new Date(),
+            showDate: false,
+            time: new Date(),
+            showTime: false,
             address: "",
             mobileNumber: "",
             setOptions: false,
             confirmOptions: false
-        }
-    }
+        };
+    };
 
     static contextType = AppContext;
     
@@ -28,6 +32,68 @@ export default class PickUpOptions extends React.Component{
         this.context.orderContext.setOrderType(asapPickUp);
     }
 
+    setDate = ( event, date)=>{
+        if(!date){
+
+            return;
+        }
+
+        this.setState({
+            date,
+            showDate: false
+        });
+    }
+
+    setTime = ( event, time)=>{
+        if(!time){
+
+            return;
+        }
+
+        this.setState({
+            time,
+            showTime: false
+        });
+    }
+
+    showDate = ()=>{
+        return (
+            <View>
+                {this.state.showDate ? <DateTimePicker value={this.state.date} onChange={this.setDate} mode="date" display="default"/> : <View></View>}
+
+                <Text>Date: {this.state.date.toDateString()}</Text>
+                <Button
+                    title="Set date"
+                    onPress={()=>this.setState({ showDate: true, showTime: false})}></Button>
+            </View>
+        )
+    }
+
+    getTime = (date)=>{
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        
+        return strTime;
+    }
+
+    showTime = ()=>{
+        return (
+            <View>
+                {this.state.showTime ? <DateTimePicker is24Hour={false} value={this.state.time} onChange={this.setTime} mode="time" display="spinner"/> : <View></View>}
+
+                <Text>Time: {this.getTime(new Date(this.state.time))}</Text>
+                <Button
+                    title="Set time"
+                    onPress={()=>this.setState({ showTime: true, showDate: false})}></Button>
+            </View>
+        )
+    }
+
     renderOrderTime = ()=>{
         return (
             <>
@@ -35,14 +101,12 @@ export default class PickUpOptions extends React.Component{
                     title="ASAP"
                     onPress={()=>this.setState({ 
                         setOptions: true,
-                        time: "ASAP"
                     })}></Button>
 
                 <Button
                     title="Later"
                     onPress={()=>this.setState({
                         setOptions: true,
-                        time: "Later"
                     })}></Button>
             </>
         )
@@ -51,9 +115,11 @@ export default class PickUpOptions extends React.Component{
     setUserOptions = ()=>{
         return (
             <View>
-                <TextInput
-                    placeholder="Time"
-                    value={this.state.time}></TextInput>
+
+                {this.showDate()}
+                
+                {this.showTime()}
+                
                 <TextInput
                     placeholder="Address"></TextInput>
                 <TextInput
