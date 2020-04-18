@@ -11,7 +11,8 @@ const OrderContext = React.createContext({
     mobileNumber: "",
     orderType: "",
     orderComplete: false,
-    setOrderType: ()=>{}
+    setOrderType: ()=>{},
+    setOrderItem: ()=>{}
 })
 
 export default OrderContext;
@@ -84,6 +85,7 @@ export class OrderProvider extends React.Component{
                                 return itemsRes.json();
                             })
                             .then( itemsData => {
+                                console.log(itemsData)
                                 this.setState({ 
                                     orderItems: itemsData.orders
                                 });
@@ -164,7 +166,73 @@ export class OrderProvider extends React.Component{
         });
     }
 
-    startOrdering = ()=>{
+    setOrderItem = (method, orderItem)=>{
+
+        let item = orderItem;
+
+        item.orderId =this.state.order.id;
+
+        console.log(item);
+
+        delete item.id;
+
+        console.log(item);
+
+        UserToken.getToken()
+            .then( token => {
+
+                if(method === "POST"){
+                    console.log("POSTING")
+                    fetch("https://localhost:5001/api/orderitems", {
+                        method,
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        },
+                        body: JSON.stringify(item)
+                    })
+                        .then( res => {
+
+                            if(!res.ok){
+
+                                return res.json().then( e => Promise.reject(e));
+                            };
+
+                            return res.json();
+                        })
+                        .then( resData => {
+
+                            console.log(resData);
+                        })
+                        .catch( err => this.setState({ error: err.error}));
+
+                } else if( method === "PATCH"){
+
+                    fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
+                        method,
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        },
+                        body: JSON.stringify(item)
+                    })
+                        .then( res => {
+
+                            if(!res.ok){
+
+                                return res.json().then( e => Promise.reject(e));
+                            };
+
+                            return res.json();
+                        })
+                        .then( resData => {
+
+                            console.log(resData);
+                        })
+                        .catch( err => this.setState({ error: err.error}));
+
+                }
+            })
 
     }
 
@@ -178,7 +246,8 @@ export class OrderProvider extends React.Component{
             mobileNumber: this.state.mobileNumber,
             orderType: this.state.orderType,
             orderComplete: this.state.orderComplete,
-            setOrderType: this.setOrderType
+            setOrderType: this.setOrderType,
+            setOrderItem: this.setOrderItem
         };
 
         console.log(this.state);
