@@ -2,7 +2,7 @@ import React from "react";
 import {View, Text, Button} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
-import PastaItem from "./PastaItem/PastaItem";
+import Item from "../Item/Item";
 
 export default class PastaItems extends React.Component{
     constructor(props){
@@ -21,7 +21,7 @@ export default class PastaItems extends React.Component{
             
             if(item.category === this.state.itemType){
 
-                return <PastaItem key={index} item={item}/>;
+                return <Item key={index} item={item}/>;
             };
         });
 

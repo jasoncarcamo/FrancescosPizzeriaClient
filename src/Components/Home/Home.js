@@ -41,6 +41,10 @@ export default class Home extends React.Component{
         
         return (
             <View>
+                <Button
+                        title="Open menu"
+                        onPress={()=>this.props.navigation.toggleDrawer()}></Button>     
+                        
                 <Text>Open up App.js to start working on your app!</Text>
                 <Button
                     title="Pick Up"

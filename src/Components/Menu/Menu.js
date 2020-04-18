@@ -19,23 +19,27 @@ export default class Menu extends React.Component{
     }
 
     static contextType = AppContext;
+
     componentDidMount(){
         this.getCategories();
-        console.log(this.context, "Hello")
     }
 
     getCategories = ()=>{
         let categories = this.context.menuContext.menuItems;
-        console.log(categories)
+
         this.setState({
             categories
-        })
+        });
     }
 
     render(){
 
         return (
-            <Stack.Navigator initialRouteName="Menu">
+            <Stack.Navigator 
+            screenOptions={{
+                headerRight: ()=> (<Button color="red" title="Menu icon again" onPress={()=> this.props.navigation.toggleDrawer()}></Button>)
+            }}
+            initialRouteName="Menu">
                 <Stack.Screen name="Menu" component={MenuItems}></Stack.Screen>
                 <Stack.Screen name="Pizza items" component={PizzaItems}></Stack.Screen>
                 <Stack.Screen name="Pasta items" component={PastaItems}></Stack.Screen>

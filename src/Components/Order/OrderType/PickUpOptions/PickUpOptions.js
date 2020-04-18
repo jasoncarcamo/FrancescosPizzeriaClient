@@ -7,12 +7,12 @@ export default class PickUpOptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            asap: false,
             orderType: "Pick up",
             date: new Date(),
             showDate: false,
             time: new Date(),
             showTime: false,
-            address: "",
             mobileNumber: "",
             setOptions: false,
             confirmOptions: false
@@ -25,11 +25,25 @@ export default class PickUpOptions extends React.Component{
         const asapPickUp = {
             orderType: this.state.orderType,
             time: this.state.time,
-            address: this.state.address,
             mobileNumber: this.state.mobileNumber
         };
 
         this.context.orderContext.setOrderType(asapPickUp);
+
+        this.props.navigation.navigate("Menu");
+    }
+
+    setAddress = (text)=>{
+        console.log(text)
+        this.setState({
+            address: text
+        });
+    }
+
+    setMobile = (text)=>{
+        this.setState({
+            mobileNumber: text
+        });
     }
 
     setDate = ( event, date)=>{
@@ -101,6 +115,8 @@ export default class PickUpOptions extends React.Component{
                     title="ASAP"
                     onPress={()=>this.setState({ 
                         setOptions: true,
+                        asap: true,
+                        time: "ASAP"
                     })}></Button>
 
                 <Button
@@ -116,14 +132,14 @@ export default class PickUpOptions extends React.Component{
         return (
             <View>
 
-                {this.showDate()}
+                {!this.state.asap ? this.showDate() : <View></View>}
                 
-                {this.showTime()}
+                {!this.state.asap ? this.showTime() : <Text>ASAP</Text>}
                 
                 <TextInput
-                    placeholder="Address"></TextInput>
-                <TextInput
-                    placeholder="Mobile number"></TextInput>
+                    placeholder="Mobile number"
+                    value={this.state.mobileNumber}
+                    onChangeText={this.setMobile}></TextInput>
                 
                 <Button
                     title="Ok"
@@ -138,19 +154,21 @@ export default class PickUpOptions extends React.Component{
     renderConfirmOptions = ()=>{
         return (
             <View>
-                <Text>Is the address: {this.state.address} correct?</Text>
+                <Text>Is the mobile number: {this.state.mobileNumber} correct?</Text>
                 
                 <Button
-                    title="Yes"></Button>
+                    title="Yes"
+                    onPress={this.asapPickUp}></Button>
                 
                 <Button
-                    title="Edit address"></Button>
+                    title="Edit mobile number"
+                    onPress={()=>this.setState({setOptions: true, confirmOptions: false})}></Button>
             </View>
         )
     }
 
     render(){
-
+        console.log(this.state)
         return (
             <View>
 

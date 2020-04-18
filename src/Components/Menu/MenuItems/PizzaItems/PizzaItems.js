@@ -2,7 +2,7 @@ import React from "react";
 import {View, Button, Text} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
-import PizzaItem from "./PizzaItem/PizzaItem";
+import Item from "../Item/Item";
 
 export default class PizzaItems extends React.Component{
     constructor(props){
@@ -21,7 +21,7 @@ export default class PizzaItems extends React.Component{
 
             if(item.category == this.state.itemType){
 
-                return <PizzaItem key={index} item={item}/>;
+                return <Item key={index} item={item}/>;
             }
         });
 

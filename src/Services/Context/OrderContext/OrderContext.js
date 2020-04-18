@@ -35,12 +35,12 @@ export class OrderProvider extends React.Component{
     static contextType = UserContext;
 
     UNSAFE_componentWillReceiveProps(){
-        console.log(this.props)
+        
         if(this.props.userContext.isLoggedIn){
 
             UserToken.getToken()
                 .then( token => {
-                    console.log("Hello")
+
                     fetch("https://localhost:5001/api/orders", {
                         headers: {
                             'content-type': "application/json",
@@ -71,7 +71,7 @@ export class OrderProvider extends React.Component{
                         fetch(`https://localhost:5001/api/orderitems/order/${resData.order.id}`, {
                             headers: {
                                 'content-type': "application/json",
-                                'authorization': `'bearer ${token}`
+                                'authorization': `bearer ${token}`
                             }
                         })
                             .then( itemsRes => {
@@ -97,6 +97,65 @@ export class OrderProvider extends React.Component{
     }
 
     setOrderType = (order) => {
+        let userOrder = order;
+
+        userOrder.userId = this.props.userContext.user.id;
+
+        console.log(userOrder);
+        
+        UserToken.getToken()
+            .then( token => {
+
+                if(this.state.isOrdering){
+                    console.log("Patching")
+                    fetch(`https://localhost:5001/api/orders/${this.state.order.id}`, {
+                        method: "PATCH",
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        },
+                        body: JSON.stringify(userOrder)
+                    })
+                        .then( patchRes => {
+
+                            if(!patchRes){
+
+                                return patchRes.json().then( e => Promise.reject(e));
+                            };
+
+                            return patchRes.json();
+                        })
+                        .then( patchData => {
+                            console.log(patchData);
+                        })
+                        .catch( patchErr => this.setState({ error: patchErr.error}));
+
+                } else{
+                    console.log("POSTING");
+                    fetch("https://localhost:5001/api/orders", {
+                        method: "POST",
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        },
+                        body: JSON.stringify(userOrder)
+                    })
+                        .then( postRes => {
+
+                            if(!postRes){
+
+                                return postRes.json().then( e => Promise.reject(e));
+                            };
+
+                            return postRes.json();
+                        })
+                        .then( postData => {
+                            console.log(postData);
+                        })
+                        .catch( postErr => this.setState({ error: postErr}));
+                }
+            })
+
         this.setState({
             orderType: order.orderType,
             time: order.time,
@@ -121,7 +180,9 @@ export class OrderProvider extends React.Component{
             orderComplete: this.state.orderComplete,
             setOrderType: this.setOrderType
         };
-        console.log(value)
+
+        console.log(this.state);
+
         return (
             <OrderContext.Provider value={value}>
                 {this.props.children}

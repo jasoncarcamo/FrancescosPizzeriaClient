@@ -14,7 +14,7 @@ export default class Order extends React.Component{
         
         return (
             <Stack.Navigator initialRouteName="Order" screenOptions={{
-                
+                headerRight: ()=> (<Button color="red" title="Menu icon again" onPress={()=> this.props.navigation.toggleDrawer()}></Button>)
             }}>
                 <Stack.Screen name="Order" component={OrderType}></Stack.Screen>
                 <Stack.Screen name="Delivery time" component={DeliveryOptions}></Stack.Screen>

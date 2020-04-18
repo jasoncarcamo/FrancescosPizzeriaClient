@@ -1,6 +1,7 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
+import {Button} from "react-native";
 
 import AppContext from "../Services/Context/AppContext/AppContext";
 import UserContext from "../Services/Context/UserContext/UserContext";
@@ -44,14 +45,15 @@ export default class AppContainer extends React.Component{
     }
 
     render(){
-        console.log(this.context);
-
+        console.log(this.context)
         return (
-            <NavigationContainer>
-                <Drawer.Navigator screenOptions={{
-                    unmountOnBlur: true,
+            <NavigationContainer screenOptions={{
                 
-                }}>                            
+            }}>
+                <Drawer.Navigator  screenOptions={{    
+                    
+                    unmountOnBlur: true                 
+                }}>         
                     <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
                     <Drawer.Screen name="Menu" component={Menu}></Drawer.Screen>
                     <Drawer.Screen name="Order" component={Order}></Drawer.Screen>

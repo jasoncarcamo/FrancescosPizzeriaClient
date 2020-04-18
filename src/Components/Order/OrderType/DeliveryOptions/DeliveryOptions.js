@@ -31,6 +31,21 @@ export default class DeliveryOptions extends React.Component{
         };
 
         this.context.orderContext.setOrderType(asapDelivery);
+
+        this.props.navigation.navigate("Menu");
+
+    }
+
+    setAddress = (text)=>{
+        this.setState({
+            address: text
+        });
+    }
+
+    setMobile = (text)=>{
+        this.setState({
+            mobileNumber: text
+        });
     }
 
     setDate = ( event, date)=>{
@@ -121,9 +136,14 @@ export default class DeliveryOptions extends React.Component{
                 {this.showTime()}
 
                 <TextInput
-                    placeholder="Address"></TextInput>
+                    placeholder="Address"
+                    value={this.state.address}
+                    onChangeText={this.setAddress}></TextInput>
+
                 <TextInput
-                    placeholder="Mobile number"></TextInput>
+                    placeholder="Mobile number"
+                    value={this.state.mobileNumber}
+                    onChangeText={this.setMobile}></TextInput>
                 
                 <Button
                     title="Ok"
@@ -141,16 +161,18 @@ export default class DeliveryOptions extends React.Component{
                 <Text>Is the address: {this.state.address} correct?</Text>
                 
                 <Button
-                    title="Yes"></Button>
+                    title="Yes"
+                    onPress={this.asapDelivery}></Button>
                 
                 <Button
-                    title="Edit address"></Button>
+                    title="Edit address"
+                    onPress={()=>this.setState({setOptions: true, confirmOptions: false})}></Button>
             </View>
         )
     }
 
     render(){
-        console.log(this.state)
+        
         return (
             <View>
 
