@@ -14,14 +14,19 @@ export default class PizzaItems extends React.Component{
 
     static contextType = AppContext;
 
+    componentDidMount(){
+        this.setState({
+            itemType: "Pizza"
+        });
+    }
+
     renderPizzaItems = ()=>{
         let items = this.context.menuContext.menuItems;
 
         items = items.map( (item, index) => {
 
             if(item.category == this.state.itemType){
-
-                return <Item key={index} item={item}/>;
+                return <Item key={index} item={item} navigation={this.props.navigation} refreshItem={this.refreshItem}/>;
             }
         });
 
@@ -29,8 +34,12 @@ export default class PizzaItems extends React.Component{
 
     }
 
-    render(){
+    refreshItem = ()=>{
+        this.componentDidMount();
+    }
 
+    render(){
+        console.log(this.context.menuContext)
         return (
             <View>
                 {this.renderPizzaItems()}

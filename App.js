@@ -25,7 +25,7 @@ export default class App extends React.Component {
                             <UserContext.Consumer>
                                 { userContext => (
                                     <OrderProvider
-                                    
+                                    menuContext={menuContext}
                                     userContext={userContext}>
                                         <OrderContext.Consumer>
                                             { orderContext => (

@@ -1,19 +1,38 @@
 import React from "react";
 import {View, Text, Button, TextInput} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
+import UserToken from "../../../../Services/UserToken/UserToken";
 
-export default class PizzaItem extends React.Component{
+export default class Item extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            item: this.props.item,
+            item: {},
             order: false,
-            orderOption: this.props.item,
-            specialRequests: ""
+            orderOption: {},
+            specialRequests: "",
+            setSize: "",
+            quantity: 1,
+            confirmAdd: false,
+            error: ""
         }
     }
 
     static contextType = AppContext;
+
+    componentDidMount(){
+        this.setState({
+            item: this.props.item,
+            orderOption: this.props.item
+        });
+    }
+
+    setPrice = (size, price)=>{
+        this.setState({
+            setSize: size,
+            order: true
+        });
+    }
 
     displayItem = ()=>{
         return (
@@ -24,43 +43,94 @@ export default class PizzaItem extends React.Component{
 
                 <Text>{this.props.item.ingredients}</Text>
 
-                <Text>{this.props.item.specialRequests}</Text>
-
-                <Text>{this.props.item.sizeReg}</Text>
-
-                <Text>{this.props.item.sizeSmall}</Text>
-
-                <Text>{this.props.item.priceReg}</Text>
-
-                <Text>{this.props.item.priceSmall}</Text>
-
                 <View 
                     style={{
                         flexDirection: "row"
                     }}>
                     <Button
                         title={`Regular: ${this.props.item.priceReg}`}
-                        onPress={()=> this.setState({ order: true})}></Button>
+                        onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}></Button>
                     
                     {this.props.item.priceSmall !== 0 ? <Button
                         title={`Small: ${this.props.item.priceSmall}`}
-                        onPress={()=> this.setState({ order: true})}></Button> : <View></View>}
+                        onPress={( price)=>this.setPrice("priceSmall", this.props.item.priceSmall)}></Button> : <View></View>}
                 </View>
             </>
-        )
+        );
+    }
+
+    confirmAdd = ()=>{
+        return (
+            <View>
+                <Text>Item successfully added</Text>
+
+                <Button
+                    title="Thanks"
+                    onPress={this.resetItem}></Button>
+            </View>
+        );
     }
 
     addItem = ()=>{
-        this.context.orderContext.setOrderItem("POST", this.state.item);
+
+        
+
+        UserToken.hasToken()
+            .then( token => {
+                console.log(this.context);
+                if(!token){
+                    this.props.navigation.navigate("Log in");
+                } else{
+                    this.context.orderContext.setOrderItem("POST", this.state.setSize, this.state.quantity, this.state.orderOption)
+                        .then( data => {
+                            console.log(data);
+                            this.setState({
+                                confirmAdd: true
+                            })
+                        })
+                        .catch( err => this.setState({ error: err.error}))
+                };                
+            });
     }
 
     setRequest = (text)=>{
-        const item = this.state.item;
+        let item = this.state.orderOption;
 
         item.specialRequests = text;
 
         this.setState({
-            item
+            orderOption: item
+        });
+    }
+
+    resetItem = ()=>{
+        this.setState({
+            setSize: "",
+            order: false,
+            quantity: 1,
+            confirmAdd: false,
+            item: this.props,
+            orderOption: this.props.item
+        });
+    }
+
+    addQuantity =()=>{
+        this.setState({
+            quantity: ++this.state.quantity
+        });
+    }
+
+    subtractQuantity = ()=>{
+        let quantity = this.state.quantity;
+
+        quantity = --quantity;
+
+        if(quantity < 1){
+            quantity = 1;
+        };
+
+        this.setState({
+            quantity
         });
     }
 
@@ -74,13 +144,28 @@ export default class PizzaItem extends React.Component{
 
                 <Text>{this.props.item.ingredients}</Text>
 
+                <View
+                    style={{
+                        flexDirection: "row"
+                    }}>
+                    <Button
+                        title="-"
+                        onPress={this.subtractQuantity}></Button>
+
+                    <Text>{this.state.quantity}</Text>
+
+                    <Button
+                        title="+"
+                        onPress={this.addQuantity}></Button>
+                </View>
+
                 <TextInput
                     multiline={true}
                     style={{
                         width: "100%",
                         height: "5em"
                     }}
-                    value={this.state.item.specialRequests}
+                    value={this.state.orderOption.specialRequests || ""}
                     onChangeText={this.setRequest}
                     placeholder="Special requests"></TextInput>
                 
@@ -95,7 +180,7 @@ export default class PizzaItem extends React.Component{
 
                     <Button
                         title="Cancel"
-                        onPress={()=>this.setState({ order: false})}></Button>
+                        onPress={this.resetItem}></Button>
                 </View>
             </View>
         )
@@ -103,11 +188,14 @@ export default class PizzaItem extends React.Component{
 
     render(){
         console.log(this.state)
+        console.log(this.props.item)
         return(
             <View>
                 {!this.state.order ? this.displayItem() : <View></View>}
 
-                {this.state.order ? this.orderItem() : <View></View>}
+                {this.state.order && !this.state.confirmAdd ? this.orderItem() : <View></View>}
+
+                {this.state.confirmAdd ? this.confirmAdd() : <View></View>}
             </View>
         )
     }

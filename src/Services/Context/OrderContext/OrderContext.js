@@ -1,5 +1,5 @@
 import React from "react";
-import UserContext from "../UserContext/UserContext";
+import MenuContext from "../MenuContext/MenuContext";
 import UserToken from "../../UserToken/UserToken";
 
 const OrderContext = React.createContext({
@@ -33,7 +33,7 @@ export class OrderProvider extends React.Component{
         }
     }
 
-    static contextType = UserContext;
+    static contextType = MenuContext;
 
     UNSAFE_componentWillReceiveProps(){
         
@@ -103,7 +103,7 @@ export class OrderProvider extends React.Component{
 
         userOrder.userId = this.props.userContext.user.id;
 
-        console.log(userOrder);
+        console.log();
         
         UserToken.getToken()
             .then( token => {
@@ -166,24 +166,31 @@ export class OrderProvider extends React.Component{
         });
     }
 
-    setOrderItem = (method, orderItem)=>{
-
+    setOrderItem = async (method, size, quantity, orderItem)=>{
         let item = orderItem;
+
+
+        item.quantity = quantity;
 
         item.orderId =this.state.order.id;
 
-        console.log(item);
-
         delete item.id;
 
-        console.log(item);
+        if(size === "priceReg"){
+            item.priceSmall = 0;
+        } else if( size === "priceSmall"){
+            item.priceReg = 0;
+        };
 
-        UserToken.getToken()
+        
+        this.props.menuContext.refreshItems();
+
+        return UserToken.getToken()
             .then( token => {
 
                 if(method === "POST"){
                     console.log("POSTING")
-                    fetch("https://localhost:5001/api/orderitems", {
+                    return fetch("https://localhost:5001/api/orderitems", {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -200,15 +207,10 @@ export class OrderProvider extends React.Component{
 
                             return res.json();
                         })
-                        .then( resData => {
-
-                            console.log(resData);
-                        })
-                        .catch( err => this.setState({ error: err.error}));
 
                 } else if( method === "PATCH"){
 
-                    fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
+                    return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -224,14 +226,8 @@ export class OrderProvider extends React.Component{
                             };
 
                             return res.json();
-                        })
-                        .then( resData => {
-
-                            console.log(resData);
-                        })
-                        .catch( err => this.setState({ error: err.error}));
-
-                }
+                        });
+                };
             })
 
     }

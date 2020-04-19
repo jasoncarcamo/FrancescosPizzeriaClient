@@ -20,18 +20,6 @@ export default class Menu extends React.Component{
 
     static contextType = AppContext;
 
-    componentDidMount(){
-        this.getCategories();
-    }
-
-    getCategories = ()=>{
-        let categories = this.context.menuContext.menuItems;
-
-        this.setState({
-            categories
-        });
-    }
-
     render(){
 
         return (

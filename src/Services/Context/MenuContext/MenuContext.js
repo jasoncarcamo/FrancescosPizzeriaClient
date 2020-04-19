@@ -2,6 +2,7 @@ import React from "react";
 
 const MenuContext = React.createContext({
     menuItems: [],
+    refreshItems: ()=>{}
 });
 
 export default MenuContext;
@@ -15,7 +16,6 @@ export class MenuProvider extends React.Component{
         }
     }
 
-    
     componentDidMount(){
         fetch("https://localhost:5001/api/menuitems")
             .then( res => {
@@ -35,11 +35,16 @@ export class MenuProvider extends React.Component{
             .catch( err => this.setState({ error: err.error}));
     }
 
+    refreshItems = ()=>{
+        this.componentDidMount();
+    }
+
     render(){
         const value = {
-            menuItems: this.state.menuItems
-        }
-        
+            menuItems: this.state.menuItems,
+            refreshItems: this.refreshItems
+        };
+
         return (
             <MenuContext.Provider value={value}>
                 {this.props.children}

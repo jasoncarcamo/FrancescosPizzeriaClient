@@ -21,7 +21,7 @@ export default class HeroItems extends React.Component{
             
             if(item.category === this.state.itemType){
 
-                return <Item key={index} item={item}/>;
+                return <Item key={index} item={item} navigation={this.props.navigation}/>;
             }
         });
 
