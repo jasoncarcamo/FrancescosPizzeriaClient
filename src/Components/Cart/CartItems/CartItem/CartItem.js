@@ -160,8 +160,6 @@ export default class CartItem extends React.Component{
                         this.setState({
                             edit: false
                         });
-
-                        this.componentDidMount();
                     })
             })
             .catch( err => this.setState({ error: err.error}));

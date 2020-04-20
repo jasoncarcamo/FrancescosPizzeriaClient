@@ -14,7 +14,8 @@ const OrderContext = React.createContext({
     setOrderType: ()=>{},
     setOrderItem: ()=>{},
     refreshItem: ()=>{},
-    removeItem: ()=>{}
+    removeItem: ()=>{},
+    completeOrder: ()=>{}
 })
 
 export default OrderContext;
@@ -36,6 +37,10 @@ export class OrderProvider extends React.Component{
     }
 
     static contextType = MenuContext;
+
+    componentDidMount(){
+
+    }
 
     UNSAFE_componentWillReceiveProps(){
         
@@ -60,7 +65,7 @@ export class OrderProvider extends React.Component{
                         return res.json();
                     })
                     .then( resData => {
-
+                        console.log(resData);
                         this.setState({
                             order: resData.order,
                             orderType: resData.order.orderType,
@@ -93,10 +98,9 @@ export class OrderProvider extends React.Component{
                             })
                             .catch( itemsErr => this.setState({ error: itemsErr.error}));
                     })
-                    .catch( err => this.setState({ error: err.error}));
-
+                    .catch( err => this.setState({ error: err.error, isOrdering: false}));
                 });
-        }
+        };
     }
 
     setOrderType = (order) => {
@@ -110,7 +114,9 @@ export class OrderProvider extends React.Component{
             .then( token => {
 
                 if(this.state.isOrdering){
-                    console.log("Patching")
+
+
+
                     fetch(`https://localhost:5001/api/orders/${this.state.order.id}`, {
                         method: "PATCH",
                         headers: {
@@ -184,7 +190,6 @@ export class OrderProvider extends React.Component{
             item.priceReg = 0;
         };
 
-        order.id = id;
         console.log(order)
         this.props.menuContext.refreshItems();
 
@@ -207,11 +212,13 @@ export class OrderProvider extends React.Component{
 
                                 return res.json().then( e => Promise.reject(e));
                             };
-
+                            
                             return res.json();
                         })
 
                 } else if( method === "PATCH"){
+
+                    order.id = id;
                     console.log("PATCHING")
                     return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
                         method,
@@ -257,8 +264,37 @@ export class OrderProvider extends React.Component{
             })
     }
 
+    completeOrder = async (order)=>{
+        console.log(order);
+
+        UserToken.getToken()
+            .then( token => {
+
+                return fetch(`https://localhost:5001/api/orders/${order.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        'content-type': "application/json",
+                        'authorization': `bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        orderComplete: true
+                    })
+                })
+                    .then( res => {
+
+                        if(!res.ok){
+                            return res.json().then( e => Promise.reject(e));
+                        };
+                        
+                        this.props.menuContext.refreshItems();
+
+                        return res.json();
+                    });
+            });
+    };
+
     refreshItem = async ()=>{
-        this.context.refreshItems();
+        this.props.menuContext.refreshItems();
 
         return true;
     }
@@ -276,7 +312,8 @@ export class OrderProvider extends React.Component{
             setOrderType: this.setOrderType,
             setOrderItem: this.setOrderItem,
             refreshItem: this.refreshItem,
-            removeItem: this.removeItem
+            removeItem: this.removeItem,
+            completeOrder: this.completeOrder
         };
 
         console.log(this.state);

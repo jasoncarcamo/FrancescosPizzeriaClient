@@ -32,16 +32,32 @@ export default class CartItems extends React.Component{
     }
 
     refreshItems =()=>{
-        console.log(this.context);
         this.componentDidMount();
+    }
+
+    continue = ()=>{
+        if(this.context.orderContext.orderItems.length > 0){
+            return <Button title="Check out" onPress={()=>this.props.navigation.navigate("Check out")}></Button>
+        } else{
+            return (
+                <>
+                    <Text>No items in your cart yet.</Text>
+
+                    <Button
+                        title="Start ordering"
+                        onPress={()=> this.props.navigation.navigate("Menu")}></Button>
+                </>
+            )
+        }
     }
 
     render(){
         return (
             <ScrollView>
-                <Text>Cart items</Text>
 
                 {this.renderItems()}
+
+                {this.continue()}
             </ScrollView>
         )
     }

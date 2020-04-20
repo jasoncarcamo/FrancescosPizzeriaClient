@@ -73,21 +73,20 @@ export default class Item extends React.Component{
 
     addItem = ()=>{
 
-        
-
         UserToken.hasToken()
             .then( token => {
-                console.log(this.context);
+
                 if(!token){
                     this.props.navigation.navigate("Log in");
                 } else{
+
                     this.context.orderContext.setOrderItem("POST", this.state.setSize, this.state.quantity, this.state.orderOption)
                         .then( data => {
                             this.setState({
                                 confirmAdd: true
-                            })
+                            });
                         })
-                        .catch( err => this.setState({ error: err.error}))
+                        .catch( err => this.setState({ error: err.error}));
                 };                
             });
     }
