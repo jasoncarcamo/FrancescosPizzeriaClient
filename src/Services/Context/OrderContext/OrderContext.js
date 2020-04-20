@@ -12,7 +12,9 @@ const OrderContext = React.createContext({
     orderType: "",
     orderComplete: false,
     setOrderType: ()=>{},
-    setOrderItem: ()=>{}
+    setOrderItem: ()=>{},
+    refreshItem: ()=>{},
+    removeItem: ()=>{}
 })
 
 export default OrderContext;
@@ -85,7 +87,6 @@ export class OrderProvider extends React.Component{
                                 return itemsRes.json();
                             })
                             .then( itemsData => {
-                                console.log(itemsData)
                                 this.setState({ 
                                     orderItems: itemsData.orders
                                 });
@@ -168,7 +169,8 @@ export class OrderProvider extends React.Component{
 
     setOrderItem = async (method, size, quantity, orderItem)=>{
         let item = orderItem;
-
+        let order = orderItem;
+        let id = item.id;
 
         item.quantity = quantity;
 
@@ -182,7 +184,8 @@ export class OrderProvider extends React.Component{
             item.priceReg = 0;
         };
 
-        
+        order.id = id;
+        console.log(order)
         this.props.menuContext.refreshItems();
 
         return UserToken.getToken()
@@ -209,7 +212,7 @@ export class OrderProvider extends React.Component{
                         })
 
                 } else if( method === "PATCH"){
-
+                    console.log("PATCHING")
                     return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
                         method,
                         headers: {
@@ -232,6 +235,34 @@ export class OrderProvider extends React.Component{
 
     }
 
+    removeItem = async (id)=>{
+        UserToken.getToken()
+            .then( token => {
+                return fetch(`https://localhost:5001/api/orderitems/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        }
+                    })
+                        .then( res => {
+
+                            if(!res.ok){
+
+                                return res.json().then( e => Promise.reject(e));
+                            };
+
+                            return res.json();
+                        })
+            })
+    }
+
+    refreshItem = async ()=>{
+        this.context.refreshItems();
+
+        return true;
+    }
+
     render(){
         const value= {
             order: this.state.order,
@@ -243,7 +274,9 @@ export class OrderProvider extends React.Component{
             orderType: this.state.orderType,
             orderComplete: this.state.orderComplete,
             setOrderType: this.setOrderType,
-            setOrderItem: this.setOrderItem
+            setOrderItem: this.setOrderItem,
+            refreshItem: this.refreshItem,
+            removeItem: this.removeItem
         };
 
         console.log(this.state);

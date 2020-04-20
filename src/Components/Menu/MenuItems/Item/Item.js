@@ -83,7 +83,6 @@ export default class Item extends React.Component{
                 } else{
                     this.context.orderContext.setOrderItem("POST", this.state.setSize, this.state.quantity, this.state.orderOption)
                         .then( data => {
-                            console.log(data);
                             this.setState({
                                 confirmAdd: true
                             })

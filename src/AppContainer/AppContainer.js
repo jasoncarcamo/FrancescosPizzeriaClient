@@ -4,10 +4,13 @@ import {createDrawerNavigator} from "@react-navigation/drawer";
 import {Button} from "react-native";
 
 import AppContext from "../Services/Context/AppContext/AppContext";
-import UserContext from "../Services/Context/UserContext/UserContext";
 import Order from "../Components/Order/Order";
 import Home from "../Components/Home/Home";
 import Menu from "../Components/Menu/Menu";
+
+import CartAmount from "../Components/Cart/CartAmount/CartAmount";
+import Cart from "../Components/Cart/Cart";
+
 import Register from "../Components/Register/Register";
 import Login from "../Components/Login/Login";
 import UserProfile from "../Components/UserProfile/UserProfile";
@@ -30,6 +33,9 @@ export default class AppContainer extends React.Component{
         return (
             <>
                 <Drawer.Screen name="Profile" component={UserProfile}></Drawer.Screen>
+                <Drawer.Screen name="Cart" component={Cart} options={{
+                    drawerIcon: ()=> <CartAmount/>
+                }}></Drawer.Screen>
                 <Drawer.Screen name="Sign out" component={SignOut}></Drawer.Screen>
             </>
         );
