@@ -18,7 +18,7 @@ export default class CartItem extends React.Component{
     static contextType = AppContext;
 
     componentDidMount(){
-        
+
         this.setState({
             item: this.props.item,
             size: this.getSize(),
@@ -45,7 +45,10 @@ export default class CartItem extends React.Component{
                 
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
-
+                        this.setState({
+                            confirmDelete: false
+                        })
+                        this.props.refreshItem();
                     })
             })
             .catch( err => this.setState({ error: err.error}))
@@ -198,7 +201,8 @@ export default class CartItem extends React.Component{
     }
 
     render(){
-
+        console.log(this.state)
+        console.log(this.context)
         return (
             <View>
                 {this.displayItem()}

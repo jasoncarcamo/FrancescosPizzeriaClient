@@ -16,7 +16,8 @@ const OrderContext = React.createContext({
     refreshItem: ()=>{},
     removeItem: ()=>{},
     completeOrder: ()=>{},
-    resetOrder: ()=>{}
+    resetOrder: ()=>{},
+    cancelOrder: ()=>{}
 })
 
 export default OrderContext;
@@ -207,7 +208,7 @@ export class OrderProvider extends React.Component{
                 } else if( method === "PATCH"){
 
                     order.id = id;
-                    
+
                     return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
                         method,
                         headers: {
@@ -231,7 +232,7 @@ export class OrderProvider extends React.Component{
     }
 
     removeItem = async (id)=>{
-        UserToken.getToken()
+        return UserToken.getToken()
             .then( token => {
                 return fetch(`https://localhost:5001/api/orderitems/${id}`, {
                         method: "DELETE",
@@ -280,6 +281,29 @@ export class OrderProvider extends React.Component{
             });
     };
 
+    cancelOrder = async (order)=>{
+        return UserToken.getToken()
+            .then( token => {
+                return fetch(`https://localhost:5001/api/orders/${order.id}`, {
+                    method: "DELETE",
+                    headers: {
+                        'content-type': "application/json",
+                        'authorization':    `bearer ${token}`
+                    }
+                })
+                    .then( res => {
+                        if(!res.ok){
+
+                            return res.json().then( e => Promise.reject(e));
+                        };
+
+                        this.props.menuContext.refreshItems();
+
+                        return res.json();
+                    })
+            })
+    }
+
     refreshItem = async ()=>{
         this.props.menuContext.refreshItems();
 
@@ -297,7 +321,7 @@ export class OrderProvider extends React.Component{
             orderType: "",
             orderComplete: false,
             error: ""
-        })
+        });
     }
 
     render(){
@@ -315,7 +339,8 @@ export class OrderProvider extends React.Component{
             refreshItem: this.refreshItem,
             removeItem: this.removeItem,
             completeOrder: this.completeOrder,
-            resetOrder: this.resetOrder
+            resetOrder: this.resetOrder,
+            cancelOrder: this.cancelOrder
         };
 
         return (

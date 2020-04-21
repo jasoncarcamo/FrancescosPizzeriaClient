@@ -24,7 +24,7 @@ export default class PickUpOptions extends React.Component{
     asapPickUp = ()=>{
         const asapPickUp = {
             orderType: this.state.orderType,
-            time: this.state.time,
+            time: new Date(),
             mobileNumber: this.state.mobileNumber
         };
 
@@ -33,7 +33,7 @@ export default class PickUpOptions extends React.Component{
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
                         this.props.navigation.navigate("Menu");
-                    })
+                    });
             })
             .catch( err => this.setState({ error: err.error}));
     }
@@ -172,7 +172,8 @@ export default class PickUpOptions extends React.Component{
     }
 
     render(){
-
+        console.log(this.state);
+        console.log(this.context);
         return (
             <View>
 

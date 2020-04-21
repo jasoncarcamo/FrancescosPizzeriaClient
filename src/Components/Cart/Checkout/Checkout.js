@@ -38,12 +38,24 @@ export default class Checkout extends React.Component{
             .then( data => {
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
-
-                        this.context.orderContext.resetOrder();
                         
                         this.setState({
                             orderPlaced: true
                         });
+                        
+                        this.context.orderContext.resetOrder();
+                    });
+            })
+            .catch( err => this.setState({ error: err.error}));
+    }
+
+    cancelOrder = ()=>{
+        this.context.orderContext.cancelOrder(this.context.orderContext.order)
+            .then( data => {
+                this.context.orderContext.refreshItem()
+                    .then( refreshed => {
+                        this.context.orderContext.resetOrder();
+                        this.props.navigation.navigate("Cart items");
                     });
             })
             .catch( err => this.setState({ error: err.error}));
@@ -62,7 +74,7 @@ export default class Checkout extends React.Component{
                 
                 <Button
                     title="Cancel order"
-                    ></Button>
+                    onPress={this.cancelOrder}></Button>
             </View>
         )
     }
@@ -88,7 +100,7 @@ export default class Checkout extends React.Component{
     };
 
     render(){
-        
+
         return (
             <ScrollView>
                 <Text>Checking out</Text>
