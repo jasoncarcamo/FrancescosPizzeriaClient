@@ -248,6 +248,12 @@ export class OrderProvider extends React.Component{
                                 return res.json().then( e => Promise.reject(e));
                             };
 
+                            if(this.state.orderItems.length == 1){
+                                this.setState({
+                                    orderItems: []
+                                });
+                            };
+
                             return res.json();
                         })
             })

@@ -26,6 +26,17 @@ export default class CartItem extends React.Component{
         });
     }
 
+    componentWillUnmount(){
+        this.setState({
+            item: {},
+            edit: false,
+            quantity: "",
+            size: "",
+            confirmDelete: false,
+            error: ""
+        });
+    }
+
     getSize = ()=>{
         let item = this.props.item;
         let size;
@@ -40,7 +51,7 @@ export default class CartItem extends React.Component{
     }
 
     handleDelete = ()=>{
-        this.context.orderContext.removeItem(this.state.item.id)
+        this.context.orderContext.removeItem(this.context.orderContext.orderItems[this.props.index].id)
             .then( deleted => {
                 
                 this.context.orderContext.refreshItem()
@@ -48,8 +59,7 @@ export default class CartItem extends React.Component{
                         this.setState({
                             confirmDelete: false
                         })
-                        this.props.refreshItem();
-                    })
+                    });
             })
             .catch( err => this.setState({ error: err.error}))
     }

@@ -23,10 +23,10 @@ export default class CartItems extends React.Component{
     renderItems = ()=>{
         let items = this.context.orderContext.orderItems;
 
-        if(items.length ==0 || !items){
+        if(items.length < 1 || !items){
             return items;
         };
-        
+
         items = items.map( ( item, index)=> {
 
             return <CartItem key={index} index={index} item={item} refreshItem={this.refreshItems} navigation={this.props.navigation}/>
