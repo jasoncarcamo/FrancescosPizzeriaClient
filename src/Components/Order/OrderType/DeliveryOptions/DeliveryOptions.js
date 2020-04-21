@@ -30,9 +30,14 @@ export default class DeliveryOptions extends React.Component{
             mobileNumber: this.state.mobileNumber
         };
 
-        this.context.orderContext.setOrderType(asapDelivery);
-
-        this.props.navigation.navigate("Menu");
+        this.context.orderContext.setOrderType(asapDelivery)
+            .then( orderSet => {
+                this.context.orderContext.refreshItem()
+                    .then( refreshed => {
+                        this.props.navigation.navigate("Menu");
+                    })
+            })
+            .catch( err => this.setState({ error: err.error}));
 
     }
 

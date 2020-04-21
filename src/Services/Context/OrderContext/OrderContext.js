@@ -15,7 +15,8 @@ const OrderContext = React.createContext({
     setOrderItem: ()=>{},
     refreshItem: ()=>{},
     removeItem: ()=>{},
-    completeOrder: ()=>{}
+    completeOrder: ()=>{},
+    resetOrder: ()=>{}
 })
 
 export default OrderContext;
@@ -65,7 +66,7 @@ export class OrderProvider extends React.Component{
                         return res.json();
                     })
                     .then( resData => {
-                        console.log(resData);
+
                         this.setState({
                             order: resData.order,
                             orderType: resData.order.orderType,
@@ -103,21 +104,17 @@ export class OrderProvider extends React.Component{
         };
     }
 
-    setOrderType = (order) => {
+    setOrderType = async (order) => {
         let userOrder = order;
 
         userOrder.userId = this.props.userContext.user.id;
-
-        console.log();
         
         UserToken.getToken()
             .then( token => {
 
                 if(this.state.isOrdering){
 
-
-
-                    fetch(`https://localhost:5001/api/orders/${this.state.order.id}`, {
+                    return fetch(`https://localhost:5001/api/orders/${this.state.order.id}`, {
                         method: "PATCH",
                         headers: {
                             'content-type': "application/json",
@@ -133,15 +130,11 @@ export class OrderProvider extends React.Component{
                             };
 
                             return patchRes.json();
-                        })
-                        .then( patchData => {
-                            console.log(patchData);
-                        })
-                        .catch( patchErr => this.setState({ error: patchErr.error}));
+                        });
 
                 } else{
-                    console.log("POSTING");
-                    fetch("https://localhost:5001/api/orders", {
+
+                    return fetch("https://localhost:5001/api/orders", {
                         method: "POST",
                         headers: {
                             'content-type': "application/json",
@@ -158,10 +151,6 @@ export class OrderProvider extends React.Component{
 
                             return postRes.json();
                         })
-                        .then( postData => {
-                            console.log(postData);
-                        })
-                        .catch( postErr => this.setState({ error: postErr}));
                 }
             })
 
@@ -190,14 +179,13 @@ export class OrderProvider extends React.Component{
             item.priceReg = 0;
         };
 
-        console.log(order)
         this.props.menuContext.refreshItems();
 
         return UserToken.getToken()
             .then( token => {
 
                 if(method === "POST"){
-                    console.log("POSTING")
+
                     return fetch("https://localhost:5001/api/orderitems", {
                         method,
                         headers: {
@@ -219,7 +207,7 @@ export class OrderProvider extends React.Component{
                 } else if( method === "PATCH"){
 
                     order.id = id;
-                    console.log("PATCHING")
+                    
                     return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
                         method,
                         headers: {
@@ -265,9 +253,8 @@ export class OrderProvider extends React.Component{
     }
 
     completeOrder = async (order)=>{
-        console.log(order);
 
-        UserToken.getToken()
+        return UserToken.getToken()
             .then( token => {
 
                 return fetch(`https://localhost:5001/api/orders/${order.id}`, {
@@ -299,6 +286,20 @@ export class OrderProvider extends React.Component{
         return true;
     }
 
+    resetOrder = ()=>{
+        this.setState({
+            order: {},
+            orderItems: [],
+            isOrdering: false,
+            time: "",
+            address: "",
+            mobileNumber: "",
+            orderType: "",
+            orderComplete: false,
+            error: ""
+        })
+    }
+
     render(){
         const value= {
             order: this.state.order,
@@ -313,10 +314,9 @@ export class OrderProvider extends React.Component{
             setOrderItem: this.setOrderItem,
             refreshItem: this.refreshItem,
             removeItem: this.removeItem,
-            completeOrder: this.completeOrder
+            completeOrder: this.completeOrder,
+            resetOrder: this.resetOrder
         };
-
-        console.log(this.state);
 
         return (
             <OrderContext.Provider value={value}>

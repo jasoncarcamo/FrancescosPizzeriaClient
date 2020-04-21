@@ -51,7 +51,7 @@ export default class AppContainer extends React.Component{
     }
 
     render(){
-        console.log(this.context)
+        
         return (
             <NavigationContainer screenOptions={{
                 

@@ -28,13 +28,17 @@ export default class PickUpOptions extends React.Component{
             mobileNumber: this.state.mobileNumber
         };
 
-        this.context.orderContext.setOrderType(asapPickUp);
-
-        this.props.navigation.navigate("Menu");
+        this.context.orderContext.setOrderType(asapPickUp)
+            .then( orderSet => {
+                this.context.orderContext.refreshItem()
+                    .then( refreshed => {
+                        this.props.navigation.navigate("Menu");
+                    })
+            })
+            .catch( err => this.setState({ error: err.error}));
     }
 
     setAddress = (text)=>{
-        console.log(text)
         this.setState({
             address: text
         });
@@ -168,7 +172,7 @@ export default class PickUpOptions extends React.Component{
     }
 
     render(){
-        console.log(this.state)
+
         return (
             <View>
 

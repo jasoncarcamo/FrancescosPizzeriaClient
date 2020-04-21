@@ -18,7 +18,7 @@ export default class CartItem extends React.Component{
     static contextType = AppContext;
 
     componentDidMount(){
-        console.log("Iem mounted");
+        
         this.setState({
             item: this.props.item,
             size: this.getSize(),
@@ -42,9 +42,10 @@ export default class CartItem extends React.Component{
     handleDelete = ()=>{
         this.context.orderContext.removeItem(this.state.item.id)
             .then( deleted => {
+                
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
-                        this.componentDidMount();
+
                     })
             })
             .catch( err => this.setState({ error: err.error}))
@@ -197,9 +198,7 @@ export default class CartItem extends React.Component{
     }
 
     render(){
-        console.log(this.state)
-        console.log(this.props.item)
-        console.log(this.context)
+
         return (
             <View>
                 {this.displayItem()}

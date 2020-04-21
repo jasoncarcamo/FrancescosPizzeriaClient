@@ -80,6 +80,13 @@ export default class Item extends React.Component{
                     this.props.navigation.navigate("Log in");
                 } else{
 
+                    if(!this.context.orderContext.isOrdering){
+
+                        this.props.navigation.navigate("Order");
+
+                        return;
+                    }
+
                     this.context.orderContext.setOrderItem("POST", this.state.setSize, this.state.quantity, this.state.orderOption)
                         .then( data => {
                             this.setState({
@@ -185,8 +192,7 @@ export default class Item extends React.Component{
     }
 
     render(){
-        console.log(this.state)
-        console.log(this.props.item)
+        
         return(
             <View>
                 {!this.state.order ? this.displayItem() : <View></View>}

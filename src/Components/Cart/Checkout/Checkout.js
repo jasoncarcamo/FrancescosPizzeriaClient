@@ -36,9 +36,15 @@ export default class Checkout extends React.Component{
     placeOrder = ()=>{
         this.context.orderContext.completeOrder(this.context.orderContext.order)
             .then( data => {
-                this.setState({
-                    orderPlaced: true
-                });
+                this.context.orderContext.refreshItem()
+                    .then( refreshed => {
+
+                        this.context.orderContext.resetOrder();
+                        
+                        this.setState({
+                            orderPlaced: true
+                        });
+                    });
             })
             .catch( err => this.setState({ error: err.error}));
     }
@@ -62,8 +68,9 @@ export default class Checkout extends React.Component{
     }
 
     refreshApp = ()=>{
+
         this.context.orderContext.refreshItem()
-            .then( data => {
+            .then( refreshed => {
                 this.props.navigation.navigate("Home");
             })
     }
@@ -81,7 +88,7 @@ export default class Checkout extends React.Component{
     };
 
     render(){
-        console.log(this.context);
+        
         return (
             <ScrollView>
                 <Text>Checking out</Text>
