@@ -56,6 +56,7 @@ export default class CartItem extends React.Component{
                 
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
+                        this.props.showCheckout();
                         this.setState({
                             confirmDelete: false
                         })
@@ -74,7 +75,10 @@ export default class CartItem extends React.Component{
 
                 <Button
                     title="Cancel"
-                    onPress={()=> this.setState({ confirmDelete: false})}></Button>
+                    onPress={()=> {
+                        this.props.showCheckout();
+                        this.setState({ confirmDelete: false});
+                    }}></Button>
             </View>
         )
     }
@@ -85,11 +89,17 @@ export default class CartItem extends React.Component{
 
                 <Button
                     title="Edit item"
-                    onPress={()=>this.setState({ edit: true})}></Button>
+                    onPress={()=>{
+                        this.props.showCheckout();
+                        this.setState({ edit: true})
+                    }}></Button>
 
                 <Button
                     title="Remove item"
-                    onPress={()=> this.setState({ confirmDelete: true})}></Button>
+                    onPress={()=> {
+                        this.props.showCheckout();
+                        this.setState({ confirmDelete: true});
+                    }}></Button>
             </View>
         )
     }
@@ -131,6 +141,7 @@ export default class CartItem extends React.Component{
         this.context.orderContext.refreshItem()
             .then( refreshed => {
 
+                this.props.showCheckout();
                 this.setState({
                     quantity: this.props.item.quantity,
                     edit: false
@@ -171,6 +182,8 @@ export default class CartItem extends React.Component{
             .then( data => {
                 this.context.orderContext.refreshItem()
                     .then( refreshed => {
+                        
+                        this.props.showCheckout();
                         this.setState({
                             edit: false
                         });

@@ -8,6 +8,6 @@ export default class CartAmount extends React.Component{
 
     render(){
 
-        return <Button title={this.context.orderContext.orderItems.length}></Button>;
+        return <Button title={this.context.orderContext.orderItems.length.toString()}></Button>;
     }
 }

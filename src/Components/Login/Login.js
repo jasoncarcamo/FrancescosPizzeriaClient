@@ -3,6 +3,8 @@ import {View, Text, TextInput, Button} from "react-native"
 import UserService from "../../Services/UserToken/UserToken";
 import AppContext from "../../Services/Context/AppContext/AppContext";
 
+import MenuIcon from "../MenuIcon/MenuIcon";
+
 export default class Login extends React.Component{
     constructor(props){
         super(props);
@@ -66,6 +68,8 @@ export default class Login extends React.Component{
         
         return (
             <View>
+                <MenuIcon navigation={this.props.navigation}/> 
+                
                 <Text>hello from log in user screen token: {this.state.token}{this.state.error}</Text>
                 <TextInput placeholder="Email" onChangeText={this.handleEmail} value={this.state.email}></TextInput>
                 <TextInput secureTextEntry={true} onChangeText={this.handlePassword} placeholder="Password" value={this.state.password}></TextInput>

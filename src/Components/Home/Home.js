@@ -5,6 +5,8 @@ import AppContext from "../../Services/Context/AppContext/AppContext";
 import UserContext from "../../Services/Context/UserContext/UserContext";
 import MenuContext from "../../Services/Context/MenuContext/MenuContext";
 
+import MenuIcon from "../MenuIcon/MenuIcon";
+
 export default class Home extends React.Component{
     constructor(props){
         super(props);
@@ -41,9 +43,7 @@ export default class Home extends React.Component{
         
         return (
             <View>
-                <Button
-                        title="Open menu"
-                        onPress={()=>this.props.navigation.toggleDrawer()}></Button>     
+                <MenuIcon navigation={this.props.navigation}/>   
                         
                 <Text>Open up App.js to start working on your app!</Text>
                 <Button

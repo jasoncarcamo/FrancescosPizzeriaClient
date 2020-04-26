@@ -8,6 +8,7 @@ export default class CartItems extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            showCheckout: true,
             refresh: false
         };
     }
@@ -29,14 +30,16 @@ export default class CartItems extends React.Component{
 
         items = items.map( ( item, index)=> {
 
-            return <CartItem key={index} index={index} item={item} refreshItem={this.refreshItems} navigation={this.props.navigation}/>
+            return <CartItem key={index} index={index} item={item} showCheckout={this.showCheckout} navigation={this.props.navigation}/>
         });
 
         return items;
     }
 
-    refreshItems =()=>{
-        this.componentDidMount();
+    showCheckout =()=>{
+        this.setState({
+            showCheckout: !this.state.showCheckout
+        })
     }
 
     continue = ()=>{

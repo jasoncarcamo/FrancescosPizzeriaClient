@@ -3,6 +3,7 @@ import {View, Text, Button} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import AppContext from "../../Services/Context/AppContext/AppContext";
 
+import MenuIcon from "../MenuIcon/MenuIcon";
 import MenuItems from "./MenuItems/MenuItems";
 import PizzaItems from "./MenuItems/PizzaItems/PizzaItems";
 import PastaItems from "./MenuItems/PastaItems/PastaItems";
@@ -25,7 +26,7 @@ export default class Menu extends React.Component{
         return (
             <Stack.Navigator 
             screenOptions={{
-                headerRight: ()=> (<Button color="red" title="Menu icon again" onPress={()=> this.props.navigation.toggleDrawer()}></Button>)
+                headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>   
             }}
             initialRouteName="Menu">
                 <Stack.Screen name="Menu" component={MenuItems}></Stack.Screen>
