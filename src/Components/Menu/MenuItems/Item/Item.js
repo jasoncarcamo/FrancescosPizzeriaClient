@@ -51,7 +51,7 @@ export default class Item extends React.Component{
                         title={`Regular: ${this.props.item.priceReg}`}
                         onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}></Button>
                     
-                    {this.props.item.priceSmall !== 0 ? <Button
+                    {this.props.item.priceSmall !== "0.00" ? <Button
                         title={`Small: ${this.props.item.priceSmall}`}
                         onPress={( price)=>this.setPrice("priceSmall", this.props.item.priceSmall)}></Button> : <View></View>}
                 </View>
@@ -192,7 +192,6 @@ export default class Item extends React.Component{
     }
 
     render(){
-        
         return(
             <View>
                 {!this.state.order ? this.displayItem() : <View></View>}

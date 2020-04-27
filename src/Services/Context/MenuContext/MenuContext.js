@@ -17,7 +17,7 @@ export class MenuProvider extends React.Component{
     }
 
     componentDidMount(){
-        fetch("https://localhost:5001/api/menuitems")
+        fetch("http://localhost:8000/api/menuitems")
             .then( res => {
 
                 if(!res.ok){
@@ -44,7 +44,6 @@ export class MenuProvider extends React.Component{
             menuItems: this.state.menuItems,
             refreshItems: this.refreshItems
         };
-
         return (
             <MenuContext.Provider value={value}>
                 {this.props.children}

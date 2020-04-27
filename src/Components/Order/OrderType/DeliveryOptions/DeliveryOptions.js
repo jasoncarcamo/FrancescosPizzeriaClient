@@ -27,7 +27,8 @@ export default class DeliveryOptions extends React.Component{
             orderType: this.state.orderType,
             time: this.state.time,
             address: this.state.address,
-            mobileNumber: this.state.mobileNumber
+            mobileNumber: this.state.mobileNumber,
+            orderComplete: false
         };
 
         this.context.orderContext.setOrderType(asapDelivery)

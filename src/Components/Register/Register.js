@@ -81,7 +81,7 @@ export default class Register extends React.Component{
     }
 
     handleSignUp = ()=>{
-        fetch("https://localhost:5001/api/registeruser", {
+        fetch("http://localhost:8000/api/register", {
             method: "POST",
             headers: {
                 'content-type': "application/json"

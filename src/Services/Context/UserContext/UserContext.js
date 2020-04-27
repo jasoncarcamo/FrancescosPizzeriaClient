@@ -22,14 +22,13 @@ export class UserProvider extends React.Component{
     componentDidMount(){
         UserToken.hasToken()
             .then( token => {
-
                 if(token){
                     
                     this.setState({
                         isLoggedIn: true
                     });
 
-                    fetch("https://localhost:5001/api/users", {
+                    fetch("http://localhost:8000/api/users", {
                         headers: {
                             'content-type': "application/json",
                             'authorization': `bearer ${token}`
@@ -76,7 +75,7 @@ export class UserProvider extends React.Component{
             isLoggedIn: this.state.isLoggedIn,
             refreshUserContext: this.refreshUserContext
         };
-
+        
         return (
             <UserContext.Provider value={value}>
                 {this.props.children}

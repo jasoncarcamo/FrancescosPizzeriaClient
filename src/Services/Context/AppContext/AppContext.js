@@ -28,7 +28,6 @@ export class AppProvider extends React.Component{
             orderContext: this.props.orderContext,
             userContext: this.props.userContext
         };
-        
 
         return (
             <AppContext.Provider value={value}>

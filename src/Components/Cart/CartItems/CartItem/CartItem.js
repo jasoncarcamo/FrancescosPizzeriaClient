@@ -224,8 +224,6 @@ export default class CartItem extends React.Component{
     }
 
     render(){
-        console.log(this.state)
-        console.log(this.context)
         return (
             <View>
                 {this.displayItem()}

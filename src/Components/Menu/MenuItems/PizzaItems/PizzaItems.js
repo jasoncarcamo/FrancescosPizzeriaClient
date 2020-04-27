@@ -39,7 +39,6 @@ export default class PizzaItems extends React.Component{
     }
 
     render(){
-        
         return (
             <View>
                 {this.renderPizzaItems()}

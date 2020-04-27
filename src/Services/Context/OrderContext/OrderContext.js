@@ -51,7 +51,7 @@ export class OrderProvider extends React.Component{
             UserToken.getToken()
                 .then( token => {
 
-                    fetch("https://localhost:5001/api/orders", {
+                    fetch("http://localhost:8000/api/orders", {
                         headers: {
                             'content-type': "application/json",
                             'authorization': `bearer ${token}`
@@ -77,8 +77,8 @@ export class OrderProvider extends React.Component{
                             mobileNumber: resData.order.mobileNumber,
                             orderType: resData.order.orderType
                         });
-
-                        fetch(`https://localhost:5001/api/orderitems/order/${resData.order.id}`, {
+                        console.log(resData);
+                        fetch(`http://localhost:8000/api/orderitems/order/${resData.order.id}`, {
                             headers: {
                                 'content-type': "application/json",
                                 'authorization': `bearer ${token}`
@@ -98,7 +98,7 @@ export class OrderProvider extends React.Component{
                                     orderItems: itemsData.orders
                                 });
                             })
-                            .catch( itemsErr => this.setState({ error: itemsErr.error}));
+                            .catch( itemsErr => this.setState( {error: itemsErr.error, isOrdering: false}));
                     })
                     .catch( err => this.setState({ error: err.error, isOrdering: false}));
                 });
@@ -115,7 +115,7 @@ export class OrderProvider extends React.Component{
 
                 if(this.state.isOrdering){
 
-                    return fetch(`https://localhost:5001/api/orders/${this.state.order.id}`, {
+                    return fetch(`http://localhost:8000/api/orders/${this.state.order.id}`, {
                         method: "PATCH",
                         headers: {
                             'content-type': "application/json",
@@ -135,7 +135,7 @@ export class OrderProvider extends React.Component{
 
                 } else{
 
-                    return fetch("https://localhost:5001/api/orders", {
+                    return fetch("http://localhost:8000/api/orders", {
                         method: "POST",
                         headers: {
                             'content-type': "application/json",
@@ -187,7 +187,7 @@ export class OrderProvider extends React.Component{
 
                 if(method === "POST"){
 
-                    return fetch("https://localhost:5001/api/orderitems", {
+                    return fetch("http://localhost:8000/api/orderitems", {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -208,8 +208,8 @@ export class OrderProvider extends React.Component{
                 } else if( method === "PATCH"){
 
                     order.id = id;
-
-                    return fetch(`https://localhost:5001/api/orderitems/${order.id}`, {
+                    console.log("PATCHING", order)
+                    return fetch(`http://localhost:8000/api/orderitems/${order.id}`, {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -234,7 +234,7 @@ export class OrderProvider extends React.Component{
     removeItem = async (id)=>{
         return UserToken.getToken()
             .then( token => {
-                return fetch(`https://localhost:5001/api/orderitems/${id}`, {
+                return fetch(`http://localhost:8000/api/orderitems/${id}`, {
                         method: "DELETE",
                         headers: {
                             'content-type': "application/json",
@@ -260,11 +260,11 @@ export class OrderProvider extends React.Component{
     }
 
     completeOrder = async (order)=>{
-
+        console.log(order)
         return UserToken.getToken()
             .then( token => {
 
-                return fetch(`https://localhost:5001/api/orders/${order.id}`, {
+                return fetch(`http://localhost:8000/api/orders/${order.id}`, {
                     method: "PATCH",
                     headers: {
                         'content-type': "application/json",
@@ -290,7 +290,7 @@ export class OrderProvider extends React.Component{
     cancelOrder = async (order)=>{
         return UserToken.getToken()
             .then( token => {
-                return fetch(`https://localhost:5001/api/orders/${order.id}`, {
+                return fetch(`http://localhost:8000/api/orders/${order.id}`, {
                     method: "DELETE",
                     headers: {
                         'content-type': "application/json",
@@ -348,7 +348,7 @@ export class OrderProvider extends React.Component{
             resetOrder: this.resetOrder,
             cancelOrder: this.cancelOrder
         };
-
+        console.log(this.state)
         return (
             <OrderContext.Provider value={value}>
                 {this.props.children}

@@ -25,7 +25,9 @@ export default class PickUpOptions extends React.Component{
         const asapPickUp = {
             orderType: this.state.orderType,
             time: new Date(),
-            mobileNumber: this.state.mobileNumber
+            mobileNumber: this.state.mobileNumber,
+            address: "",
+            orderComplete: false
         };
 
         this.context.orderContext.setOrderType(asapPickUp)
@@ -172,8 +174,6 @@ export default class PickUpOptions extends React.Component{
     }
 
     render(){
-        console.log(this.state);
-        console.log(this.context);
         return (
             <View>
 
