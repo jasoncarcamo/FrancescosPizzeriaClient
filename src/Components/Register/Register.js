@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, Button, TextInput} from "react-native";
+import {Text, View, Button, TextInput, TouchableOpacity, ScrollView} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
 import AppContext from "../../Services/Context/AppContext/AppContext";
 
@@ -123,57 +123,175 @@ export default class Register extends React.Component{
     render(){
 
         return (
-            <View>
-                <Text>Register</Text>
+            <ScrollView 
+            contentContainerStyle = {{
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    
+                }}>
+
+                <Text
+                    style={{
+                        textAlign: "center",
+                        marginVertical: 25,
+                        fontSize: 25
+                    }}>Register</Text>
 
                 <TextInput
                     onChangeText={this.handleFirstName}
                     value={this.state.firstName}
-                    placeholder="First name"></TextInput>
+                    placeholder="First name"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
                 <TextInput
                     onChangeText={this.handleLastName}
                     value={this.state.lastName}
-                    placeholder="Last name"></TextInput>
+                    placeholder="Last name"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <TextInput
                     onChangeText={this.handleAddress}
                     value={this.state.address}
-                    placeholder="Address"></TextInput>
+                    placeholder="Address"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
                 
                 <TextInput
                     onChangeText={this.handleCity}
                     value={this.state.city}
-                    placeholder="City"></TextInput>
+                    placeholder="City"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <TextInput
-                onChangeText={this.handleState}
-                value={this.state.state}
-                placeholder="State"></TextInput>
+                    onChangeText={this.handleState}
+                    value={this.state.state}
+                    placeholder="State"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <TextInput
                     onChangeText={this.handleZipCode}
                     value={this.state.zipCode}
-                    placeholder="Zip code"></TextInput>
+                    placeholder="Zip code"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
                 <TextInput
                     onChangeText={this.handleEmail}
                     value={this.state.email}
-                    placeholder="Email"></TextInput>
+                    placeholder="Email"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
+
                 <TextInput
                     onChangeText={this.handleMobileNumber}
                     value={this.state.mobileNumber}
-                    placeholder="Mobile number"></TextInput>
+                    placeholder="Mobile number"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
+
                 <TextInput
                     onChangeText={this.handlePassword}
                     value={this.state.password}
                     placeholder="Password"
-                    secureTextEntry></TextInput>
+                    secureTextEntry
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <Text>{this.state.error ? this.state.error : ""}</Text>
 
-                <Button
-                    title="Sign Up"
-                    onPress={this.handleSignUp}></Button>
-            </View>
+                <TouchableOpacity
+                    style={{
+                        width: 100,
+                        backgroundColor: "skyblue",
+                        padding: 0,
+                        marginVertical: 20,
+                        alignSelf: "center"
+                    }}
+                    onPress={this.handleSignUp}
+                    >
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                margin: 0,
+                                paddingVertical: 15,
+                                color: "white"
+                            }}>Sign Up</Text>
+                </TouchableOpacity>
+            </ScrollView>
         )
     }
 }

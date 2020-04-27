@@ -85,7 +85,13 @@ export default class CartItem extends React.Component{
 
     renderOptions = ()=>{
         return (
-            <View>
+            <View
+                style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignSelf: "center",
+                    marginVertical: 20
+                }}>
 
                 <Button
                     title="Edit item"
@@ -108,7 +114,11 @@ export default class CartItem extends React.Component{
 
         return (
             <View>
-                <Text>{this.props.item.title}</Text>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        fontWeight: "bold"
+                    }}>{this.props.item.title}</Text>
 
                 <Text>{this.props.item.description}</Text>
 
@@ -144,7 +154,8 @@ export default class CartItem extends React.Component{
                 this.props.showCheckout();
                 this.setState({
                     quantity: this.props.item.quantity,
-                    edit: false
+                    edit: false,
+                    item: this.props.item
                 });
 
                 this.componentDidMount();
@@ -195,21 +206,46 @@ export default class CartItem extends React.Component{
     editItem = ()=>{
         return (
             <>
-                <View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        marginVertical: 10
+                    }}>
                     <Button
                         title="-"
                         onPress={this.subtractQuantity}></Button>
 
-                    <Text>{this.state.quantity}</Text>
+                    <Text
+                        style={{
+                            marginHorizontal: 15,
+                            paddingVertical: 10
+                        }}>{this.state.quantity}</Text>
 
                     <Button
                         title="+"
                         onPress={this.addQuantity}></Button>
                 </View>
 
-                <TextInput multiline={true} value={this.state.item.specialRequests} onChangeText={this.handelSpecialRequests}></TextInput>
+                <TextInput 
+                    multiline={true} 
+                    value={this.state.item.specialRequests} 
+                    onChangeText={this.handelSpecialRequests}
+                    style={{
+                        width: "100%",
+                        height: 125,
+                        borderWidth: 1,
+                        borderColor: "grey"
+                    }}></TextInput>
 
-                <View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        marginVertical: 20
+                    }}>
 
                     <Button
                         title="Confirm"
@@ -224,8 +260,12 @@ export default class CartItem extends React.Component{
     }
 
     render(){
+        console.log(this.props.item)
         return (
-            <View>
+            <View
+                style={{
+                    marginVertical: 20
+                }}>
                 {this.displayItem()}
             </View>
         )

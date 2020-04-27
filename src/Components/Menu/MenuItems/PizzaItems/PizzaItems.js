@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Button, Text} from "react-native";
+import {ScrollView, Button, Text} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
 import Item from "../Item/Item";
@@ -40,9 +40,9 @@ export default class PizzaItems extends React.Component{
 
     render(){
         return (
-            <View>
+            <ScrollView>
                 {this.renderPizzaItems()}
-            </View>
+            </ScrollView>
         )
     }
 }

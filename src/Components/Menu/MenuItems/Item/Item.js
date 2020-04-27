@@ -36,8 +36,15 @@ export default class Item extends React.Component{
 
     displayItem = ()=>{
         return (
-            <>
-                <Text>{this.props.item.title}</Text>
+            <View
+                style={{
+                    marginVertical: 20
+                }}>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        fontWeight: "bold"
+                    }}>{this.props.item.title}</Text>
 
                 <Text>{this.props.item.description}</Text>
 
@@ -45,8 +52,12 @@ export default class Item extends React.Component{
 
                 <View 
                     style={{
-                        flexDirection: "row"
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        marginVertical: 20
                     }}>
+
                     <Button
                         title={`Regular: ${this.props.item.priceReg}`}
                         onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}></Button>
@@ -55,7 +66,7 @@ export default class Item extends React.Component{
                         title={`Small: ${this.props.item.priceSmall}`}
                         onPress={( price)=>this.setPrice("priceSmall", this.props.item.priceSmall)}></Button> : <View></View>}
                 </View>
-            </>
+            </View>
         );
     }
 
@@ -141,9 +152,15 @@ export default class Item extends React.Component{
 
     orderItem = ()=>{
         return (
-            <View>
+            <View
+                style={{
+                    marginVertical: 20
+                }}>
 
-                <Text>{this.props.item.title}</Text>
+                <Text 
+                    style={{
+                        fontSize: 16
+                    }}>{this.props.item.title}</Text>
 
                 <Text>{this.props.item.description}</Text>
 
@@ -151,13 +168,20 @@ export default class Item extends React.Component{
 
                 <View
                     style={{
-                        flexDirection: "row"
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        marginVertical: 10
                     }}>
                     <Button
                         title="-"
                         onPress={this.subtractQuantity}></Button>
 
-                    <Text>{this.state.quantity}</Text>
+                    <Text
+                        style={{
+                            marginHorizontal: 15,
+                            paddingVertical: 10
+                        }}>{this.state.quantity}</Text>
 
                     <Button
                         title="+"
@@ -168,7 +192,9 @@ export default class Item extends React.Component{
                     multiline={true}
                     style={{
                         width: "100%",
-                        height: "5em"
+                        height: 125,
+                        borderWidth: 1,
+                        borderColor: "grey"
                     }}
                     value={this.state.orderOption.specialRequests || ""}
                     onChangeText={this.setRequest}
@@ -176,7 +202,10 @@ export default class Item extends React.Component{
                 
                 <View
                     style={{
-                        flexDirection: "row"
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        marginVertical: 20
                     }}>
                     
                     <Button

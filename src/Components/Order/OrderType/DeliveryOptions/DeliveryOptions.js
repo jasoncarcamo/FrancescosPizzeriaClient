@@ -144,12 +144,32 @@ export default class DeliveryOptions extends React.Component{
                 <TextInput
                     placeholder="Address"
                     value={this.state.address}
-                    onChangeText={this.setAddress}></TextInput>
+                    onChangeText={this.setAddress}
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <TextInput
                     placeholder="Mobile number"
                     value={this.state.mobileNumber}
-                    onChangeText={this.setMobile}></TextInput>
+                    onChangeText={this.setMobile}
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
                 
                 <Button
                     title="Ok"

@@ -77,7 +77,7 @@ export class OrderProvider extends React.Component{
                             mobileNumber: resData.order.mobileNumber,
                             orderType: resData.order.orderType
                         });
-                        console.log(resData);
+
                         fetch(`http://localhost:8000/api/orderitems/order/${resData.order.id}`, {
                             headers: {
                                 'content-type': "application/json",
@@ -208,7 +208,7 @@ export class OrderProvider extends React.Component{
                 } else if( method === "PATCH"){
 
                     order.id = id;
-                    console.log("PATCHING", order)
+
                     return fetch(`http://localhost:8000/api/orderitems/${order.id}`, {
                         method,
                         headers: {
@@ -260,7 +260,7 @@ export class OrderProvider extends React.Component{
     }
 
     completeOrder = async (order)=>{
-        console.log(order)
+
         return UserToken.getToken()
             .then( token => {
 
@@ -348,7 +348,7 @@ export class OrderProvider extends React.Component{
             resetOrder: this.resetOrder,
             cancelOrder: this.cancelOrder
         };
-        console.log(this.state)
+        
         return (
             <OrderContext.Provider value={value}>
                 {this.props.children}

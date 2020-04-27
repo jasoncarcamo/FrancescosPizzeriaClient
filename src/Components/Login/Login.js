@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TextInput, Button} from "react-native"
+import {View, Text, TextInput, Button, ScrollView, TouchableOpacity} from "react-native"
 import UserService from "../../Services/UserToken/UserToken";
 import AppContext from "../../Services/Context/AppContext/AppContext";
 
@@ -67,19 +67,73 @@ export default class Login extends React.Component{
     render(){
         
         return (
-            <View>
+            <ScrollView
+                contentContainerStyle = {{
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    
+                }}>
+
                 <MenuIcon navigation={this.props.navigation}/> 
                 
-                <Text>hello from log in user screen token: {this.state.token}{this.state.error}</Text>
-                <TextInput placeholder="Email" onChangeText={this.handleEmail} value={this.state.email}></TextInput>
-                <TextInput secureTextEntry={true} onChangeText={this.handlePassword} placeholder="Password" value={this.state.password}></TextInput>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        marginVertical: 20,
+                        fontSize: 25
+                    }}>Log into account</Text>
+
+                <TextInput 
+                    placeholder="Email" 
+                    onChangeText={this.handleEmail} 
+                    value={this.state.email}
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
+
+                <TextInput 
+                    secureTextEntry={true} 
+                    onChangeText={this.handlePassword} 
+                    placeholder="Password" 
+                    value={this.state.password}
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
 
                 <Text>{this.state.error ? this.state.error : "" }</Text>
 
-                <Button 
-                    title="Log In"
-                    onPress={this.handleLogin}></Button>
-            </View>
+                <TouchableOpacity 
+                    onPress={this.handleLogin}
+                    style={{
+                        width: 100,
+                        backgroundColor: "skyblue",
+                        padding: 0,
+                        marginVertical: 20,
+                        alignSelf: "center"
+                    }}>
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                margin: 0,
+                                paddingVertical: 15,
+                                color: "white"
+                            }}>Log In</Text>
+                    </TouchableOpacity>
+            </ScrollView>
         )
     }
 }

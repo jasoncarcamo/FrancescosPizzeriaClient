@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Button} from "react-native";
+import {ScrollView, Text, Button} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
 import Item from "../Item/Item";
@@ -31,9 +31,9 @@ export default class HeroItems extends React.Component{
     render(){
 
         return (
-            <View>
+            <ScrollView>
                 {this.renderHeroes()}
-            </View>
+            </ScrollView>
         )
     }
 }

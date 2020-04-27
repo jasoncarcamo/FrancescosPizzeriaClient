@@ -20,21 +20,33 @@ export default class MenuItems extends React.Component{
         return(
             <View>
                 <View>
-                    <Text>Pizza</Text>
+                    <Text
+                        style={{
+                            fontSize: 18
+                        }}>Pizza</Text>
+
                     <Button
                         title="View all pizza pies"
                         onPress={this.viewPizzas}></Button>
                 </View>
 
                 <View>
-                    <Text>Pastas</Text>
+                    <Text
+                        style={{
+                            fontSize: 18
+                        }}>Pastas</Text>
+
                     <Button
                         title="View all pasta"
                         onPress={this.viewPastas}></Button>
                 </View>
 
                 <View>
-                    <Text>Heros</Text>
+                    <Text
+                        style={{
+                            fontSize: 18
+                        }}>Heros</Text>
+                        
                     <Button
                         title="View all heroes"
                         onPress={this.viewHeroes}></Button>

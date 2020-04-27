@@ -145,7 +145,17 @@ export default class PickUpOptions extends React.Component{
                 <TextInput
                     placeholder="Mobile number"
                     value={this.state.mobileNumber}
-                    onChangeText={this.setMobile}></TextInput>
+                    onChangeText={this.setMobile}
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginVertical: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput>
                 
                 <Button
                     title="Ok"
