@@ -59,8 +59,11 @@ export default class Home extends React.Component{
                         
                 <Text
                     style={{
-                        marginVertical: 20
-                    }}>Open up App.js to start working on your app!</Text>
+                        marginVertical: 80,
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        textAlign: "center"
+                    }}>Francescos Pizzeria</Text>
                 <Button
                     title="Pick Up"
                     onPress={() => this.props.navigation.navigate("Order", { screen: "Pick up time", params: "Pick up time"})}></Button>

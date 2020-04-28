@@ -18,11 +18,19 @@ export default class MenuItems extends React.Component{
     render(){
 
         return(
-            <View>
-                <View>
+            <View
+                style={{
+                    marginVertical: 25,
+                }}>
+
+                <View
+                    style={{
+                        marginVertical: 20
+                    }}>
                     <Text
                         style={{
-                            fontSize: 18
+                            fontSize: 18,
+                            textAlign: "center"
                         }}>Pizza</Text>
 
                     <Button
@@ -30,10 +38,14 @@ export default class MenuItems extends React.Component{
                         onPress={this.viewPizzas}></Button>
                 </View>
 
-                <View>
+                <View
+                    style={{
+                        marginVertical: 20
+                    }}>
                     <Text
                         style={{
-                            fontSize: 18
+                            fontSize: 18,
+                            textAlign: "center"
                         }}>Pastas</Text>
 
                     <Button
@@ -41,10 +53,14 @@ export default class MenuItems extends React.Component{
                         onPress={this.viewPastas}></Button>
                 </View>
 
-                <View>
+                <View
+                    style={{
+                        marginVertical: 20
+                    }}>
                     <Text
                         style={{
-                            fontSize: 18
+                            fontSize: 18,
+                            textAlign: "center"
                         }}>Heros</Text>
                         
                     <Button

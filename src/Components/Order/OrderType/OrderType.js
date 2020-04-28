@@ -4,8 +4,17 @@ import {Text, View, Button} from "react-native";
 export default class OrderType extends React.Component{
     render(){
         return (
-            <View>
-                <Text>Order type</Text>
+            <View
+                style={{
+                    marginVertical: 45
+                }}>
+                <Text 
+                    style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        marginBottom: 25
+                    }}>Order type</Text>
 
                 <Button
                     title="Pick up"

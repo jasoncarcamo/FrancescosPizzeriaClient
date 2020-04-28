@@ -48,7 +48,13 @@ export default class CartItems extends React.Component{
         } else{
             return (
                 <>
-                    <Text>No items in your cart yet.</Text>
+                    <Text
+                        style={{
+                            marginVertical: 30,
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            fontSize: 20
+                        }}>No items in your cart yet.</Text>
 
                     <Button
                         title="Start ordering"

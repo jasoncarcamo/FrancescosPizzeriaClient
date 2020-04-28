@@ -84,7 +84,13 @@ export default class DeliveryOptions extends React.Component{
         return (
             <View>
                 {this.state.showDate ? <DateTimePicker value={this.state.date} onChange={this.setDate} mode="date" display="default"/> : <View></View>}
-                <Text>Date: {new Date(this.state.date).toDateString()}</Text>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        marginVertical: 5,
+                        textAlign: "center"
+                    }}>Date: {new Date(this.state.date).toDateString()}</Text>
+
                 <Button
                     title="Set date"
                     onPress={()=>this.setState({ showDate: true, showTime: false})}></Button>
@@ -108,7 +114,13 @@ export default class DeliveryOptions extends React.Component{
         return (
             <View>
                 {this.state.showTime ? <DateTimePicker value={this.state.time} onChange={this.setTime} mode="time" display="spinner"/> : <View></View>}
-                <Text>Time: {this.getTime(new Date(this.state.time))}</Text>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        marginVertical: 5,
+                        textAlign: "center"
+                    }}>Time: {this.getTime(new Date(this.state.time))}</Text>
+
                 <Button
                     title="Set time"
                     onPress={()=>this.setState({ showTime: true, showDate: false})}></Button>
@@ -184,7 +196,12 @@ export default class DeliveryOptions extends React.Component{
     renderConfirmOptions = ()=>{
         return (
             <View>
-                <Text>Is the address: {this.state.address} correct?</Text>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        marginVertical: 5,
+                        textAlign: "center"
+                    }}>Is the address: {this.state.address} correct?</Text>
                 
                 <Button
                     title="Yes"
@@ -200,7 +217,10 @@ export default class DeliveryOptions extends React.Component{
     render(){
         
         return (
-            <View>
+            <View
+            style={{
+                marginTop: 55
+            }}>
 
                 {!this.state.setOptions && !this.state.confirmOptions ? this.renderOrderTime() : <View></View>}
 

@@ -40,9 +40,10 @@ export default class Item extends React.Component{
                 style={{
                     marginVertical: 20
                 }}>
-                <Text
+                
+                <Text 
                     style={{
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: "bold",
                         textAlign: "center"
                     }}>{this.props.item.title}</Text>
@@ -50,12 +51,16 @@ export default class Item extends React.Component{
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Description: {this.props.item.description}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Description:</Text> {this.props.item.description}</Text>
 
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Ingredients: {this.props.item.ingredients}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Ingredients:</Text> {this.props.item.ingredients}</Text>
 
                 <View 
                     style={{
@@ -69,7 +74,6 @@ export default class Item extends React.Component{
                         onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
@@ -80,12 +84,11 @@ export default class Item extends React.Component{
                                     paddingHorizontal: 12,
                                     paddingVertical: 12,
                                     margin: 0
-                                }}>{`Regular: ${this.props.item.priceReg}`}</Text>
+                                }}>{`Regular: $${this.props.item.priceReg}`}</Text>
                         </TouchableOpacity>
                     
                     {this.props.item.priceSmall !== "0.00" ? <TouchableOpacity  style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             marginHorizontal: 10,
                             padding: 0,
                             borderRadius: 3
@@ -97,7 +100,7 @@ export default class Item extends React.Component{
                                     paddingHorizontal: 12,
                                     paddingVertical: 12,
                                     margin: 0
-                                }}>{`Small: ${this.props.item.priceSmall}`}</Text>
+                                }}>{`Small: $${this.props.item.priceSmall}`}</Text>
                         </TouchableOpacity> : <View></View>}
                 </View>
             </View>
@@ -193,7 +196,7 @@ export default class Item extends React.Component{
 
                 <Text 
                     style={{
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: "bold",
                         textAlign: "center"
                     }}>{this.props.item.title}</Text>
@@ -201,12 +204,16 @@ export default class Item extends React.Component{
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Description: {this.props.item.description}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Description:</Text> {this.props.item.description}</Text>
 
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Ingredients: {this.props.item.ingredients}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Ingredients:</Text> {this.props.item.ingredients}</Text>
 
                 <View
                     style={{
@@ -236,7 +243,9 @@ export default class Item extends React.Component{
                         width: "100%",
                         height: 125,
                         borderWidth: 1,
-                        borderColor: "grey"
+                        borderColor: "grey",
+                        paddingLeft: 10,
+                        paddingTop: 10
                     }}
                     value={this.state.orderOption.specialRequests || ""}
                     onChangeText={this.setRequest}
@@ -254,7 +263,6 @@ export default class Item extends React.Component{
                         onPress={this.addItem}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
@@ -273,7 +281,6 @@ export default class Item extends React.Component{
                         onPress={this.resetItem}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3

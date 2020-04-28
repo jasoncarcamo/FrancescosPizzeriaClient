@@ -13,8 +13,7 @@ export default class MenuIcon extends React.Component{
                     flexDirection: "column",
                     width: 25,
                     height: 20,
-                    marginHorizontal: 20,
-                    fontSize: 2
+                    marginHorizontal: 20
             }}>
 
                     <Text

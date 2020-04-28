@@ -85,7 +85,6 @@ export default class CartItem extends React.Component{
                         onPress={this.handleDelete}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
@@ -106,7 +105,6 @@ export default class CartItem extends React.Component{
                         }}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
@@ -141,7 +139,6 @@ export default class CartItem extends React.Component{
                     }}
                     style={{
                         backgroundColor: "skyblue",
-                        color: "white",
                         padding: 0,
                         marginHorizontal: 10,
                         borderRadius: 3
@@ -162,7 +159,6 @@ export default class CartItem extends React.Component{
                     }}
                     style={{
                         backgroundColor: "skyblue",
-                        color: "white",
                         padding: 0,
                         marginHorizontal: 10,
                         borderRadius: 3
@@ -183,9 +179,9 @@ export default class CartItem extends React.Component{
 
         return (
             <View>
-                <Text
+                <Text 
                     style={{
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: "bold",
                         textAlign: "center"
                     }}>{this.props.item.title}</Text>
@@ -193,16 +189,30 @@ export default class CartItem extends React.Component{
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Description: {this.props.item.description}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Description:</Text> {this.props.item.description}</Text>
 
                 <Text
                     style={{
                         textAlign: "center"
-                    }}>Ingredients: {this.props.item.ingredients}</Text>
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Ingredients:</Text> {this.props.item.ingredients}</Text>
 
-                <Text>Special requests: {this.props.item.specialRequests}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Special requests:</Text> {this.props.item.specialRequests}</Text>
 
-                <Text>Quantity: {this.props.item.quantity}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}><Text style={{
+                        fontWeight: "bold"
+                    }}>Quantity:</Text> {this.props.item.quantity}</Text>
 
                 {!this.state.edit & !this.state.confirmDelete ? this.renderOptions() : <View></View>}
 
@@ -312,7 +322,9 @@ export default class CartItem extends React.Component{
                         width: "100%",
                         height: 125,
                         borderWidth: 1,
-                        borderColor: "grey"
+                        borderColor: "grey",
+                        paddingTop: 10,
+                        paddingLeft: 10
                     }}></TextInput>
 
                 <View
@@ -327,7 +339,6 @@ export default class CartItem extends React.Component{
                         onPress={this.updateItem}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
@@ -345,7 +356,6 @@ export default class CartItem extends React.Component{
                         onPress={this.cancelEdit}
                         style={{
                             backgroundColor: "skyblue",
-                            color: "white",
                             padding: 0,
                             marginHorizontal: 10,
                             borderRadius: 3
