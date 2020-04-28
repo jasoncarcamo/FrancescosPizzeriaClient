@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Text, ScrollView, View} from "react-native";
+import {Button, Text, ScrollView, View, TouchableOpacity} from "react-native";
 import AppContext from "../../../Services/Context/AppContext/AppContext";
 
 export default class Checkout extends React.Component{
@@ -15,7 +15,10 @@ export default class Checkout extends React.Component{
 
     renderOrderInfo = ()=>{
         return (
-            <View>
+            <View
+                style={{
+                    marginVertical: 20
+                }}>
                 <Text>Order type: {this.context.orderContext.orderType}</Text>
 
                 {this.context.orderContext.orderType == "Delivery" ? <Text>Delivery address: {this.context.orderContext.address}</Text> : <View></View>}
@@ -63,18 +66,62 @@ export default class Checkout extends React.Component{
 
     renderOptions = ()=>{
         return (
-            <View>
-                <Button
+            <View
+                style={{
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}>
+                <TouchableOpacity
                     title="Edit items"
-                    onPress={()=> this.props.navigation.navigate("Cart items")}></Button>
+                    onPress={()=> this.props.navigation.navigate("Cart items")}
+                    style={{
+                        marginVertical: 8,
+                        backgroundColor: "skyblue",
+                        width: 125,
+                        height: 40
+                    }}>
+                        <Text
+                            style={{
+                                paddingVertical: 10,
+                                paddingHorizontal: 20,
+                                textAlign: "center",
+                                color: "white"
+                            }}>Edit items</Text>
+                    </TouchableOpacity>
 
-                <Button
-                    title="Place order"
-                    onPress={this.placeOrder}></Button>
+                <TouchableOpacity
+                    onPress={this.placeOrder}
+                    style={{
+                        marginVertical: 8,
+                        backgroundColor: "skyblue",
+                        width: 125,
+                        height: 40
+                    }}>
+                        <Text
+                            style={{
+                                paddingVertical: 10,
+                                paddingHorizontal: 20,
+                                textAlign: "center",
+                                color: "white"
+                            }}>Place order</Text>
+                    </TouchableOpacity>
                 
-                <Button
-                    title="Cancel order"
-                    onPress={this.cancelOrder}></Button>
+                <TouchableOpacity
+                    onPress={this.cancelOrder}
+                    style={{
+                        marginVertical: 8,
+                        backgroundColor: "skyblue",
+                        width: 125,
+                        height: 40,
+                    }}>
+                        <Text
+                        style={{
+                            paddingVertical: 10,
+                            paddingHorizontal: 20,
+                            textAlign: "center",
+                            color: "white"
+                        }}>Cancel order</Text>
+                    </TouchableOpacity>
             </View>
         )
     }

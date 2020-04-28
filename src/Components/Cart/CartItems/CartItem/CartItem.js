@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Button, Text, TextInput} from "react-native";
+import {View, Button, Text, TextInput, TouchableOpacity} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 
 export default class CartItem extends React.Component{
@@ -67,19 +67,60 @@ export default class CartItem extends React.Component{
 
     confirmDelete = ()=>{
         return (
-            <View>
-                <Text>Are you sure?</Text>
-                <Button
-                    title="Yes"
-                    onPress={this.handleDelete}></Button>
+            <>
+                <Text
+                        style={{
+                            textAlign: "center"
+                        }}>Are you sure?</Text>
 
-                <Button
-                    title="Cancel"
-                    onPress={()=> {
-                        this.props.showCheckout();
-                        this.setState({ confirmDelete: false});
-                    }}></Button>
-            </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-evenly",
+                        alignSelf: "center",
+                        marginVertical: 20
+                    }}>
+
+                    <TouchableOpacity
+                        onPress={this.handleDelete}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>Yes</Text>
+                        </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={()=> {
+                            this.props.showCheckout();
+                            this.setState({ confirmDelete: false});
+                        }}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>Cancel</Text>
+                        </TouchableOpacity>
+                </View>
+            </>
         )
     }
 
@@ -88,24 +129,52 @@ export default class CartItem extends React.Component{
             <View
                 style={{
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    justifyContent: "space-evenly",
                     alignSelf: "center",
                     marginVertical: 20
                 }}>
 
-                <Button
-                    title="Edit item"
+                <TouchableOpacity
                     onPress={()=>{
                         this.props.showCheckout();
                         this.setState({ edit: true})
-                    }}></Button>
+                    }}
+                    style={{
+                        backgroundColor: "skyblue",
+                        color: "white",
+                        padding: 0,
+                        marginHorizontal: 10,
+                        borderRadius: 3
+                    }}>
+                        <Text
+                            style={{
+                                color: "white",
+                                paddingHorizontal: 12,
+                                paddingVertical: 12,
+                                margin: 0
+                            }}>Edit item</Text>
+                    </TouchableOpacity>
 
-                <Button
-                    title="Remove item"
+                <TouchableOpacity
                     onPress={()=> {
                         this.props.showCheckout();
                         this.setState({ confirmDelete: true});
-                    }}></Button>
+                    }}
+                    style={{
+                        backgroundColor: "skyblue",
+                        color: "white",
+                        padding: 0,
+                        marginHorizontal: 10,
+                        borderRadius: 3
+                    }}>
+                        <Text
+                            style={{
+                                color: "white",
+                                paddingHorizontal: 12,
+                                paddingVertical: 12,
+                                margin: 0
+                            }}>Remove item</Text>
+                    </TouchableOpacity>
             </View>
         )
     }
@@ -117,14 +186,21 @@ export default class CartItem extends React.Component{
                 <Text
                     style={{
                         fontSize: 16,
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        textAlign: "center"
                     }}>{this.props.item.title}</Text>
 
-                <Text>{this.props.item.description}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Description: {this.props.item.description}</Text>
 
-                <Text>{this.props.item.ingredients}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Ingredients: {this.props.item.ingredients}</Text>
 
-                <Text>{this.props.item.specialRequests}</Text>
+                <Text>Special requests: {this.props.item.specialRequests}</Text>
 
                 <Text>Quantity: {this.props.item.quantity}</Text>
 
@@ -242,29 +318,59 @@ export default class CartItem extends React.Component{
                 <View
                     style={{
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        justifyContent: "space-evenly",
                         alignSelf: "center",
                         marginVertical: 20
                     }}>
 
-                    <Button
-                        title="Confirm"
-                        onPress={this.updateItem}></Button>
+                    <TouchableOpacity
+                        onPress={this.updateItem}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>Confirm</Text>
+                        </TouchableOpacity>
                     
-                    <Button
-                        title="Cancel"
-                        onPress={this.cancelEdit}></Button>
+                    <TouchableOpacity
+                        onPress={this.cancelEdit}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>Cancel</Text>
+                        </TouchableOpacity>
                 </View>
             </>
         )
     }
 
     render(){
-        console.log(this.props.item)
+
         return (
             <View
                 style={{
-                    marginVertical: 20
+                    marginVertical: 20,
+                    borderBottomWidth: 1,
+                    borderBottomColor: "lightgrey"
                 }}>
                 {this.displayItem()}
             </View>

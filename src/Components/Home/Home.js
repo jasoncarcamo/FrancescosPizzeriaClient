@@ -42,10 +42,25 @@ export default class Home extends React.Component{
     render(){
         
         return (
-            <View>
-                <MenuIcon navigation={this.props.navigation}/>   
+            <View
+                style={{
+                    justifyContent: "space-evenly",
+                }}>
+                
+                <View
+                    style={{
+                        alignSelf: "flex-end",
+                        marginVertical: 20,
+                        marginHorizontal: 15
+                    }}>
+                    <MenuIcon 
+                        navigation={this.props.navigation}/>   
+                </View>
                         
-                <Text>Open up App.js to start working on your app!</Text>
+                <Text
+                    style={{
+                        marginVertical: 20
+                    }}>Open up App.js to start working on your app!</Text>
                 <Button
                     title="Pick Up"
                     onPress={() => this.props.navigation.navigate("Order", { screen: "Pick up time", params: "Pick up time"})}></Button>

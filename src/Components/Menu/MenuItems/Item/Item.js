@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Button, TextInput} from "react-native";
+import {View, Text, Button, TextInput, TouchableOpacity} from "react-native";
 import AppContext from "../../../../Services/Context/AppContext/AppContext";
 import UserToken from "../../../../Services/UserToken/UserToken";
 
@@ -43,28 +43,62 @@ export default class Item extends React.Component{
                 <Text
                     style={{
                         fontSize: 16,
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        textAlign: "center"
                     }}>{this.props.item.title}</Text>
 
-                <Text>{this.props.item.description}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Description: {this.props.item.description}</Text>
 
-                <Text>{this.props.item.ingredients}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Ingredients: {this.props.item.ingredients}</Text>
 
                 <View 
                     style={{
                         flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignSelf: "center",
-                        marginVertical: 20
+                        justifyContent: "space-evenly",
+                        marginVertical: 20,
+                        alignSelf: "center"
                     }}>
 
-                    <Button
-                        title={`Regular: ${this.props.item.priceReg}`}
-                        onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}></Button>
+                    <TouchableOpacity
+                        onPress={(price)=>this.setPrice("priceReg", this.props.item.priceReg)}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>{`Regular: ${this.props.item.priceReg}`}</Text>
+                        </TouchableOpacity>
                     
-                    {this.props.item.priceSmall !== "0.00" ? <Button
-                        title={`Small: ${this.props.item.priceSmall}`}
-                        onPress={( price)=>this.setPrice("priceSmall", this.props.item.priceSmall)}></Button> : <View></View>}
+                    {this.props.item.priceSmall !== "0.00" ? <TouchableOpacity  style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            marginHorizontal: 10,
+                            padding: 0,
+                            borderRadius: 3
+                        }}
+                        onPress={( price)=>this.setPrice("priceSmall", this.props.item.priceSmall)}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>{`Small: ${this.props.item.priceSmall}`}</Text>
+                        </TouchableOpacity> : <View></View>}
                 </View>
             </View>
         );
@@ -159,12 +193,20 @@ export default class Item extends React.Component{
 
                 <Text 
                     style={{
-                        fontSize: 16
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        textAlign: "center"
                     }}>{this.props.item.title}</Text>
 
-                <Text>{this.props.item.description}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Description: {this.props.item.description}</Text>
 
-                <Text>{this.props.item.ingredients}</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>Ingredients: {this.props.item.ingredients}</Text>
 
                 <View
                     style={{
@@ -203,18 +245,47 @@ export default class Item extends React.Component{
                 <View
                     style={{
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        justifyContent: "space-evenly",
                         alignSelf: "center",
                         marginVertical: 20
                     }}>
                     
-                    <Button
-                        title="Add to cart"
-                        onPress={this.addItem}></Button>
+                    <TouchableOpacity
+                        onPress={this.addItem}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                                <Text
+                                    style={{
+                                        color: "white",
+                                        paddingHorizontal: 12,
+                                        paddingVertical: 12,
+                                        margin: 0
+                                    }}>Add to cart</Text>
+                        </TouchableOpacity>
 
-                    <Button
+                    <TouchableOpacity
                         title="Cancel"
-                        onPress={this.resetItem}></Button>
+                        onPress={this.resetItem}
+                        style={{
+                            backgroundColor: "skyblue",
+                            color: "white",
+                            padding: 0,
+                            marginHorizontal: 10,
+                            borderRadius: 3
+                        }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    paddingHorizontal: 12,
+                                    paddingVertical: 12,
+                                    margin: 0
+                                }}>Cancel</Text>
+                        </TouchableOpacity>
                 </View>
             </View>
         )
@@ -222,7 +293,12 @@ export default class Item extends React.Component{
 
     render(){
         return(
-            <View>
+            <View
+                style={{
+                    marginVertical: 20,
+                    borderBottomWidth: 1,
+                    borderBottomColor: "lightgrey"
+                }}>
                 {!this.state.order ? this.displayItem() : <View></View>}
 
                 {this.state.order && !this.state.confirmAdd ? this.orderItem() : <View></View>}
