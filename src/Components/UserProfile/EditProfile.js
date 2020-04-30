@@ -126,7 +126,7 @@ export default class EditProfile extends React.Component{
     }
 
     render(){
-
+        console.log(this.state)
         return (
             <ScrollView>
                 <Text
@@ -138,7 +138,8 @@ export default class EditProfile extends React.Component{
 
                 <TextInput
                     onChangeText={this.handleFirstName}
-                    value={this.state.user.firstName}
+                    defaultValue={this.state.user.firstName}
+                    value={this.state.firstName}
                     placeholder="First name"
                     style={{
                         borderBottomColor: "black",
@@ -150,9 +151,11 @@ export default class EditProfile extends React.Component{
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+
                 <TextInput
                     onChangeText={this.handleLastName}
-                    value={this.state.user.lastName}
+                    defaultValue={this.state.user.lastName}
+                    value={this.state.lastName}
                     placeholder="Last name"
                     style={{
                         borderBottomColor: "black",
@@ -167,7 +170,8 @@ export default class EditProfile extends React.Component{
 
                 <TextInput
                     onChangeText={this.handleAddress}
-                    value={this.state.user.address}
+                    defaultValue={this.state.user.address}
+                    value={this.state.address}
                     placeholder="Address"
                     style={{
                         borderBottomColor: "black",
@@ -182,7 +186,8 @@ export default class EditProfile extends React.Component{
                 
                 <TextInput
                     onChangeText={this.handleCity}
-                    value={this.state.user.city}
+                    defaultValue={this.state.user.city}
+                    value={this.state.city}
                     placeholder="City"
                     style={{
                         borderBottomColor: "black",
@@ -197,7 +202,8 @@ export default class EditProfile extends React.Component{
 
                 <TextInput
                     onChangeText={this.handleState}
-                    value={this.state.user.state}
+                    defaultValue={this.state.user.state}
+                    value={this.state.state}
                     placeholder="State"
                     style={{
                         borderBottomColor: "black",
@@ -212,7 +218,8 @@ export default class EditProfile extends React.Component{
 
                 <TextInput
                     onChangeText={this.handleZipCode}
-                    value={this.state.user.zipCode}
+                    defaultValue={this.state.user.zipCode}
+                    value={this.state.zipCode}
                     placeholder="Zip code"
                     style={{
                         borderBottomColor: "black",
@@ -224,9 +231,11 @@ export default class EditProfile extends React.Component{
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+
                 <TextInput
                     onChangeText={this.handleEmail}
-                    value={this.state.user.email}
+                    defaultValue={this.state.user.email}
+                    value={this.state.email}
                     placeholder="Email"
                     style={{
                         borderBottomColor: "black",
@@ -241,7 +250,8 @@ export default class EditProfile extends React.Component{
 
                 <TextInput
                     onChangeText={this.handleMobileNumber}
-                    value={this.state.user.mobileNumber}
+                    value={this.state.mobileNumber}
+                    defaultValue={this.state.user.mobileNumber}
                     placeholder="Mobile number"
                     style={{
                         borderBottomColor: "black",
@@ -252,25 +262,14 @@ export default class EditProfile extends React.Component{
                         marginVertical: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
-                    }}></TextInput>
+                    }}
+                    keyboardType="phone-pad"
+                    dataDetectorTypes="phoneNumber"></TextInput>
 
-                <TextInput
-                    onChangeText={this.handlePassword}
-                    value={this.state.user.password}
-                    placeholder="Password"
-                    secureTextEntry
+                <Text
                     style={{
-                        borderBottomColor: "black",
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        width: 280,
-                        height: 40,
-                        marginVertical: 10,
-                        alignSelf: "center",
-                        paddingLeft: 15                        
-                    }}></TextInput>
-
-                <Text>{this.state.error ? this.state.error : ""}</Text>
+                        textAlign: "center"
+                    }}>{this.state.error ? this.state.error : ""}</Text>
 
                 <TouchableOpacity
                     style={{

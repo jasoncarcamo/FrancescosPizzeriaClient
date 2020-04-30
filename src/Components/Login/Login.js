@@ -30,7 +30,7 @@ export default class Login extends React.Component{
     }
 
     handleLogin = ()=>{
-        fetch("http://localhost:8000/api/login", {
+        fetch("https://vast-escarpment-62007.herokuapp.com/api/login", {
             method: "POST",
             headers: {
                 'content-type': "application/json"
@@ -74,13 +74,22 @@ export default class Login extends React.Component{
                     
                 }}>
 
-                <MenuIcon navigation={this.props.navigation}/> 
+                <View
+                    style={{
+                        alignSelf: "flex-end",
+                        marginVertical: 20,
+                        marginHorizontal: 15
+                    }}>
+                    <MenuIcon 
+                        navigation={this.props.navigation}/>   
+                </View>
                 
                 <Text
                     style={{
                         textAlign: "center",
-                        marginVertical: 20,
-                        fontSize: 25
+                        marginTop: 125,
+                        marginBottom: 20,
+                        fontSize: 30
                     }}>Log into account</Text>
 
                 <TextInput 
@@ -114,7 +123,10 @@ export default class Login extends React.Component{
                         paddingLeft: 15                        
                     }}></TextInput>
 
-                <Text>{this.state.error ? this.state.error : "" }</Text>
+                <Text
+                    style={{
+                        textAlign: "center"
+                    }}>{this.state.error ? this.state.error : "" }</Text>
 
                 <TouchableOpacity 
                     onPress={this.handleLogin}

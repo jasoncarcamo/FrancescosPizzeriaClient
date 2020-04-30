@@ -59,10 +59,10 @@ export default class Home extends React.Component{
                         
                 <Text
                     style={{
-                        marginVertical: 80,
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        textAlign: "center"
+                        textAlign: "center",
+                        marginTop: 75,
+                        marginBottom: 75,
+                        fontSize: 30
                     }}>Francescos Pizzeria</Text>
                 <Button
                     title="Pick Up"

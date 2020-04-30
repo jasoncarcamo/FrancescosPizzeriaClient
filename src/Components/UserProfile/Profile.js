@@ -22,17 +22,31 @@ export default class Profile extends React.Component{
         return (
             <View>
 
-                <Text>User profile</Text>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        fontSize: 18,
+                        marginTop: 60,
+                        marginBottom: 30
+                    }}>{this.context.user.firstName} {this.context.user.lastName}</Text>
 
-                <Text>{this.context.user.firstName} {this.context.user.lastName}</Text>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        fontSize: 18,
+                        marginVertical: 20
+                    }}>{this.context.user.address}, {this.context.user.city}, {this.context.user.state}, {this.context.user.zipCode}</Text>
 
-                <Text>{this.context.user.address}, {this.context.user.city}, {this.context.user.state}, {this.context.user.zipCode}</Text>
-
-                <Text>{this.context.user.mobileNumber}</Text>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        fontSize: 18,
+                        marginVertical: 20
+                    }}>{this.context.user.mobileNumber}</Text>
 
                 <Button
                     title="Edit profile"
-                    onPress={()=> this.props.navigation.navigate("Edit Profile")}></Button>
+                    onPress={() => this.props.navigation.navigate("Edit Profile")}></Button>
             </View>
         )
     }

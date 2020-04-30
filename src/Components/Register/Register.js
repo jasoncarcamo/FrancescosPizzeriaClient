@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View, Button, TextInput, TouchableOpacity, ScrollView} from "react-native";
 import UserToken from "../../Services/UserToken/UserToken";
 import AppContext from "../../Services/Context/AppContext/AppContext";
+import MenuIcon from "../MenuIcon/MenuIcon";
 
 export default class Register extends React.Component{
     constructor(props){
@@ -15,7 +16,9 @@ export default class Register extends React.Component{
             zipCode: "",
             email: "",
             mobileNumber: "",
+            unformattedNumber: "",
             password: "",
+            confirmPassword: "",
             error: ""
         };
     };
@@ -68,10 +71,124 @@ export default class Register extends React.Component{
         })
     }
 
+    formatMobileNumber = (phoneNumberString)=> {
+        var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+        if (match) {
+            return '1+ (' + match[1] + ') ' + match[2] + '-' + match[3]
+        };
+
+        return "";
+    }
+
     handleMobileNumber = (text)=>{
+        console.log(text);
         this.setState({
             mobileNumber: text
         })
+    }
+
+    handleConfirmPassword = (text)=>{
+        this.setState({
+            confirmPassword: text
+        });
+    };
+
+    confirmPassword = (password)=>{
+        if(this.state.confirmPassword == ""){
+            return (
+                <>
+                    <View
+                        style={{
+                            width: 280,
+                            height: 3,
+                            backgroundColor: "grey",
+                            alignSelf: "center",
+                        }}></View>
+                </>
+            )
+        };
+
+        if(password == this.state.confirmPassword){
+            return (
+                <>
+                    <View
+                        style={{
+                            width: 280,
+                            height: 3,
+                            backgroundColor: "green",
+                            alignSelf: "center",
+                        }}></View>
+                    <Text
+                        style={{
+                            width: 280,
+                            paddingLeft: 5,
+                            marginBottom: 20,
+                            alignSelf: "center"
+                        }}>Password matches!</Text>
+                </>
+            );
+        } else{
+            return (
+                <>
+                    <View
+                        style={{
+                            width: 280,
+                            height: 3,
+                            backgroundColor: "red",
+                            alignSelf: "center",
+                        }}></View>
+                    <Text
+                        style={{
+                            width: 280,
+                            paddingLeft: 5,
+                            marginBottom: 20,
+                            alignSelf: "center"
+                        }}>Password does not match!</Text>
+                </>
+            )
+        }
+    }
+
+    validatePassword = (password) => {
+        
+        const REGEX_UPPER_LOWER_NUMBER_SPECIAL = (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/);
+
+        const requirements = [ 
+            <Text key={0} style={{color: 'gray'}}>Password must be longer than 8 characters</Text>,
+            <Text key={1} style={{color: 'gray'}}>Password must be less than 72 characters</Text>,
+            <Text key={2} style={{color: 'gray'}}>Password must not start or end with empty spaces</Text>,
+            <Text key={3} style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</Text>
+        ]
+
+        if(password.length > 1){
+            if (password.length > 8) {
+                requirements[0] = <Text key={0} style={{color: 'green'}}>Password must be longer than 8 characters</Text>
+              } else{
+      
+              }
+      
+              if (password.length < 72) {
+                requirements[1] = <Text key={1} style={{color: 'green'}}>Password must be less than 72 characters</Text>
+              } else{
+      
+              };
+      
+              if (!password.startsWith(' ') || !password.endsWith(' ')) {
+                requirements[2] = <Text key={2} style={{color: 'green'}}>Password must not start or end with empty spaces</Text>
+              } else{
+                
+              };
+      
+              if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
+                  requirements[3] = <Text key={3} style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</Text>
+              } else{
+                  requirements[3] = <Text key={3} style={{color: 'green'}}>Password must contain one upper case, lower case, number and special character</Text>
+              };
+        }
+        
+        return requirements
     }
 
     handlePassword = (text)=>{
@@ -81,7 +198,29 @@ export default class Register extends React.Component{
     }
 
     handleSignUp = ()=>{
-        fetch("http://localhost:8000/api/register", {
+        const userInfo  = this.state;
+        let valid = true;
+
+        for( const key of Object.keys(userInfo)){
+            
+            if(key != "error" && key != "unformattedNumber"){
+                console.log(key)
+                if(userInfo[key] == ""){
+                    valid = false;
+                };
+            };
+        };
+
+        if(!valid){
+
+            this.setState({
+                error: "Fill out the missing information"
+            });
+
+            return;
+        }
+
+        fetch("https://vast-escarpment-62007.herokuapp.com/api/register", {
             method: "POST",
             headers: {
                 'content-type': "application/json"
@@ -130,11 +269,22 @@ export default class Register extends React.Component{
                     
                 }}>
 
+                <View
+                    style={{
+                        alignSelf: "flex-end",
+                        marginVertical: 20,
+                        marginHorizontal: 15
+                    }}>
+                    <MenuIcon 
+                        navigation={this.props.navigation}/>   
+                </View>
+
                 <Text
                     style={{
                         textAlign: "center",
-                        marginVertical: 25,
-                        fontSize: 25
+                        marginTop: 75,
+                        marginBottom: 65,
+                        fontSize: 30
                     }}>Register</Text>
 
                 <TextInput
@@ -147,10 +297,19 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.firstName == "" ? "Required" : ""}</Text>
+
                 <TextInput
                     onChangeText={this.handleLastName}
                     value={this.state.lastName}
@@ -161,10 +320,18 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.lastName == "" ? "Required" : ""}</Text>
 
                 <TextInput
                     onChangeText={this.handleAddress}
@@ -176,10 +343,18 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.address == "" ? "Required" : ""}</Text>
                 
                 <TextInput
                     onChangeText={this.handleCity}
@@ -191,10 +366,18 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.city == "" ? "Required" : ""}</Text>
 
                 <TextInput
                     onChangeText={this.handleState}
@@ -206,10 +389,18 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.state == "" ? "Required" : ""}</Text>
 
                 <TextInput
                     onChangeText={this.handleZipCode}
@@ -221,10 +412,19 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.zipCode == "" ? "Required" : ""}</Text>
+
                 <TextInput
                     onChangeText={this.handleEmail}
                     value={this.state.email}
@@ -235,25 +435,43 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.email == "" ? "Required" : ""}</Text>
 
                 <TextInput
                     onChangeText={this.handleMobileNumber}
                     value={this.state.mobileNumber}
-                    placeholder="Mobile number"
+                    placeholder="1+ (999) 999 - 9999"
                     style={{
                         borderBottomColor: "black",
                         borderWidth: 1,
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
-                    }}></TextInput>
+                    }}
+                    keyboardType="phone-pad"
+                    dataDetectorTypes="phoneNumber"></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                        marginBottom: 20
+                    }}>{this.state.mobileNumber == "" ? "Required" : ""}</Text>
 
                 <TextInput
                     onChangeText={this.handlePassword}
@@ -266,12 +484,57 @@ export default class Register extends React.Component{
                         borderRadius: 4,
                         width: 280,
                         height: 40,
-                        marginVertical: 10,
+                        marginTop: 10,
                         alignSelf: "center",
                         paddingLeft: 15                        
                     }}></TextInput>
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                    }}>{this.state.password == "" ? "Required" : ""}</Text>     
+                <View
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        padding: 5,
+                        marginBottom: 20,
+                        borderWidth: 1,
+                        borderColor: "lightgrey",
+                        borderRadius: 4
+                    }}>{this.validatePassword(this.state.password)}</View>    
 
-                <Text>{this.state.error ? this.state.error : ""}</Text>
+                <TextInput
+                    secureTextEntry={true}
+                    value={this.state.confirmPassword}
+                    onChangeText={this.handleConfirmPassword}
+                    placeholder="Confirm password"
+                    style={{
+                        borderBottomColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: 280,
+                        height: 40,
+                        marginTop: 10,
+                        alignSelf: "center",
+                        paddingLeft: 15                        
+                    }}></TextInput> 
+                {this.confirmPassword(this.state.password)}  
+                <Text
+                    style={{
+                        width: 280,
+                        alignSelf: "center",
+                        paddingLeft: 5,
+                        color: "red",
+                    }}>{this.state.confirmPassword == "" ? "Required" : ""}</Text>    
+
+                <Text
+                    style={{
+                        textAlign: "center",
+                        marginVertical: 15
+                    }}>{this.state.error ? this.state.error : ""}</Text>
 
                 <TouchableOpacity
                     style={{

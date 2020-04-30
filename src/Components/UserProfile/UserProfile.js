@@ -23,7 +23,8 @@ export default class UserProfile extends React.Component{
         console.log(this.context)
         return (
             <Stack.Navigator initialRouteName="Profile" screenOptions={{
-                headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>   
+                headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>   ,
+                
             }}>
                 <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
                 <Stack.Screen name="Edit Profile" component={EditProfile} options={{
