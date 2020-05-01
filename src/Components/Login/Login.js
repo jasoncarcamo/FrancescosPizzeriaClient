@@ -30,7 +30,7 @@ export default class Login extends React.Component{
     }
 
     handleLogin = ()=>{
-        fetch("https://vast-escarpment-62007.herokuapp.com/api/login", {
+        fetch("http://localhost:8000/api/login", {
             method: "POST",
             headers: {
                 'content-type': "application/json"

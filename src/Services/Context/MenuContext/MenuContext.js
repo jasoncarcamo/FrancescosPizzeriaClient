@@ -17,7 +17,7 @@ export class MenuProvider extends React.Component{
     }
 
     componentDidMount(){
-        fetch("https://vast-escarpment-62007.herokuapp.com/api/menuitems")
+        fetch("http://localhost:8000/api/menuitems")
             .then( res => {
 
                 if(!res.ok){

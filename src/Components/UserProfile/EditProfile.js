@@ -1,6 +1,7 @@
 import React from "react";
 import {ScrollView, Text, Button, TouchableOpacity, TextInput} from "react-native";
 import AppContext from "../../Services/Context/AppContext/AppContext";
+import UserToken from "../../Services/UserToken/UserToken";
 
 export default class EditProfile extends React.Component{
     constructor(props){
@@ -125,16 +126,79 @@ export default class EditProfile extends React.Component{
         });
     }
 
+    handleEdit = ()=>{
+
+        const {
+            firstName,
+            lastName,
+            address,
+            city,
+            state,
+            zipCode,
+            email,
+            mobileNumber
+        } = this.state;
+        
+        const updateUser = {
+            firstName,
+            lastName,
+            address,
+            city,
+            state,
+            zipCode,
+            email,
+            mobileNumber
+        };
+
+        for( const key of Object.keys(updateUser)){
+
+            if(updateUser[key] == ""){
+                delete updateUser[key];
+            };
+        };
+
+        UserToken.getToken()
+            .then( token => {
+
+                fetch(`http://localhost:8000/api/users/${this.state.user.id}`, {
+                    method: "PATCH", 
+                    headers: {
+                        'content-type': "application/json",
+                        'authorization': `bearer ${token}`
+                    },
+                    body: JSON.stringify(updateUser)
+                })
+                    .then( res => {
+
+                        if(!res.ok){
+
+                            return res.json().then( e => Promise.reject(e));
+                        };
+
+                        return res.json();
+                    })
+                    .then( resData => {
+                        
+                        this.context.userContext.refreshUserContext()
+                            .then( refreshed => {
+                                this.props.navigation.navigate("Profile");
+                            })
+                    })
+                    .catch( err => this.setState({ error: err.error }));
+            });
+    }
+
     render(){
         console.log(this.state)
         return (
             <ScrollView>
+
                 <Text
                     style={{
                         textAlign: "center",
                         marginVertical: 25,
                         fontSize: 25
-                    }}>Register</Text>
+                    }}>Edit account</Text>
 
                 <TextInput
                     onChangeText={this.handleFirstName}
@@ -279,7 +343,7 @@ export default class EditProfile extends React.Component{
                         marginVertical: 20,
                         alignSelf: "center"
                     }}
-                    onPress={this.handleSignUp}
+                    onPress={this.handleEdit}
                     >
                         <Text
                             style={{

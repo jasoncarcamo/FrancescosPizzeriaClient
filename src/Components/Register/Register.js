@@ -220,7 +220,7 @@ export default class Register extends React.Component{
             return;
         }
 
-        fetch("https://vast-escarpment-62007.herokuapp.com/api/register", {
+        fetch("http://localhost:8000/api/register", {
             method: "POST",
             headers: {
                 'content-type': "application/json"

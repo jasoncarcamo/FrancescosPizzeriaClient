@@ -1,7 +1,8 @@
 import React from "react";
-import {View, Text, Button} from "react-native";
+import {View, Text, Button, ScrollView} from "react-native";
 import UserContext from "../../Services/Context/UserContext/UserContext";
 import {createStackNavigator} from "@react-navigation/stack";
+import ResetPassword from "./ResetPassword";
 
 import MenuIcon from "../MenuIcon/MenuIcon";
 
@@ -20,7 +21,7 @@ export default class Profile extends React.Component{
     render(){
         console.log(this.context)
         return (
-            <View>
+            <ScrollView>
 
                 <Text
                     style={{
@@ -47,7 +48,11 @@ export default class Profile extends React.Component{
                 <Button
                     title="Edit profile"
                     onPress={() => this.props.navigation.navigate("Edit Profile")}></Button>
-            </View>
+
+                <ResetPassword id={this.context.user.id} navigation={this.props.navigation
+                }/>
+
+            </ScrollView>
         )
     }
 }

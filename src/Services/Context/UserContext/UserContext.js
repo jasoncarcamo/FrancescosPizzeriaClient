@@ -28,7 +28,7 @@ export class UserProvider extends React.Component{
                         isLoggedIn: true
                     });
 
-                    fetch("https://vast-escarpment-62007.herokuapp.com/api/users", {
+                    fetch("http://localhost:8000/api/users", {
                         headers: {
                             'content-type': "application/json",
                             'authorization': `bearer ${token}`
