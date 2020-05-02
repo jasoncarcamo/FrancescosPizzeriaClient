@@ -65,9 +65,48 @@ export class UserProvider extends React.Component{
     }
 
     refreshUserContext = async ()=>{
-        this.componentDidMount();
+        return UserToken.hasToken()
+            .then( token => {
+                if(token){
+                    
+                    this.setState({
+                        isLoggedIn: true
+                    });
 
-        return await !this.state.isLoggedIn;
+                    return fetch("https://vast-escarpment-62007.herokuapp.com/api/users", {
+                        headers: {
+                            'content-type': "application/json",
+                            'authorization': `bearer ${token}`
+                        }
+                    })
+                        .then( res => {
+
+                            if(!res.ok){
+
+                                return res.json().then( e => Promise.reject(e));
+                            };
+
+                            return res.json();
+                        })
+                        .then( resData => {
+
+                            this.setState({
+                                user: resData.user
+                            });
+
+                            return true;
+                        })
+                        .catch( err => this.setState({ error: err.error}))
+
+                } else{
+
+                    this.setState({
+                        isLoggedIn: false
+                    });
+
+                    return false;
+                };
+            });
     }
 
     render(){

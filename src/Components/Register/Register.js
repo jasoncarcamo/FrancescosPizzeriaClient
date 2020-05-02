@@ -272,7 +272,7 @@ export default class Register extends React.Component{
                 <View
                     style={{
                         alignSelf: "flex-end",
-                        marginVertical: 20,
+                        marginVertical: 45,
                         marginHorizontal: 15
                     }}>
                     <MenuIcon 
@@ -282,7 +282,7 @@ export default class Register extends React.Component{
                 <Text
                     style={{
                         textAlign: "center",
-                        marginTop: 75,
+                        marginTop: 40,
                         marginBottom: 65,
                         fontSize: 30
                     }}>Register</Text>

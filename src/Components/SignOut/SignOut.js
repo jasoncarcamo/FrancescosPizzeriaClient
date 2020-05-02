@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, Button} from "react-native";
+import {Text, View, Button, TouchableOpacity} from "react-native";
 import AppContext from "../../Services/Context/AppContext/AppContext";
 import UserToken from "../../Services/UserToken/UserToken";
 
@@ -26,9 +26,22 @@ export default class SignOut extends React.Component{
     render(){
         return (
             <View>
-                <Button
-                    title="Sign out"
-                    onPress={this.handleSignOut}></Button>
+                <TouchableOpacity
+                    style={{
+                        alignSelf: "center",
+                        width: 100,
+                        marginTop: 155,
+                        backgroundColor: "skyblue"
+                    }}
+                    onPress={this.handleSignOut}>
+                    <Text
+                        style={{
+                            margin: 0,
+                            paddingHorizontal: 12,
+                            paddingVertical: 16,
+                            textAlign: "center"
+                        }}>Sign out</Text>
+                </TouchableOpacity>
             </View>
         )
     }

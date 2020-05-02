@@ -29,10 +29,19 @@ export default class Home extends React.Component{
         title="Sign Out"
         onPress={this.handleSignOut}></Button>;
     }
+
     isNotLoggedIn = ()=>{
-        return <Button
-        title="Sign In"
-        onPress={this.toLogIn}></Button>
+        return (
+            <>
+                <Button
+                    title="Sign In"
+                    onPress={this.toLogIn}></Button>
+
+                <Button
+                    title="Sign up"
+                    onPress={() => this.props.navigation.navigate("Sign up")}></Button>
+            </>
+        );
     }
 
     toLogIn = () => {
@@ -50,7 +59,7 @@ export default class Home extends React.Component{
                 <View
                     style={{
                         alignSelf: "flex-end",
-                        marginVertical: 20,
+                        marginVertical: 45,
                         marginHorizontal: 15
                     }}>
                     <MenuIcon 
@@ -60,7 +69,7 @@ export default class Home extends React.Component{
                 <Text
                     style={{
                         textAlign: "center",
-                        marginTop: 75,
+                        marginTop: 40,
                         marginBottom: 75,
                         fontSize: 30
                     }}>Francescos Pizzeria</Text>
@@ -71,7 +80,6 @@ export default class Home extends React.Component{
                 <Button
                     title="Delivery"
                     onPress={()=> this.props.navigation.navigate("Order", { screen: "Delivery time", params: "Delivery time"})}></Button>
-
 
                 {this.context.userContext.isLoggedIn ? this.isLoggedIn() : this.isNotLoggedIn()}
             </View>

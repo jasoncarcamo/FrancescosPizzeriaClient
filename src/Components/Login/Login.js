@@ -77,7 +77,7 @@ export default class Login extends React.Component{
                 <View
                     style={{
                         alignSelf: "flex-end",
-                        marginVertical: 20,
+                        marginVertical: 45,
                         marginHorizontal: 15
                     }}>
                     <MenuIcon 
@@ -87,7 +87,7 @@ export default class Login extends React.Component{
                 <Text
                     style={{
                         textAlign: "center",
-                        marginTop: 125,
+                        marginTop: 40,
                         marginBottom: 20,
                         fontSize: 30
                     }}>Log into account</Text>
