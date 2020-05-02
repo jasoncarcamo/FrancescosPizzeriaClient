@@ -28,7 +28,7 @@ export class UserProvider extends React.Component{
                         isLoggedIn: true
                     });
 
-                    fetch("http://localhost:8000/api/users", {
+                    fetch("https://vast-escarpment-62007.herokuapp.com/api/users", {
                         headers: {
                             'content-type': "application/json",
                             'authorization': `bearer ${token}`
@@ -44,8 +44,6 @@ export class UserProvider extends React.Component{
                             return res.json();
                         })
                         .then( resData => {
-
-                            console.log(resData.user)
 
                             this.setState({
                                 user: resData.user

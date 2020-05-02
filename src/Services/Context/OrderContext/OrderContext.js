@@ -51,7 +51,7 @@ export class OrderProvider extends React.Component{
             UserToken.getToken()
                 .then( token => {
 
-                    fetch("http://localhost:8000/api/orders", {
+                    fetch("https://vast-escarpment-62007.herokuapp.com/api/orders", {
                         headers: {
                             'content-type': "application/json",
                             'authorization': `bearer ${token}`
@@ -78,7 +78,7 @@ export class OrderProvider extends React.Component{
                             orderType: resData.order.orderType
                         });
 
-                        fetch(`http://localhost:8000/api/orderitems/order/${resData.order.id}`, {
+                        fetch(`https://vast-escarpment-62007.herokuapp.com/api/orderitems/order/${resData.order.id}`, {
                             headers: {
                                 'content-type': "application/json",
                                 'authorization': `bearer ${token}`
@@ -115,7 +115,7 @@ export class OrderProvider extends React.Component{
 
                 if(this.state.isOrdering){
 
-                    return fetch(`http://localhost:8000/api/orders/${this.state.order.id}`, {
+                    return fetch(`https://vast-escarpment-62007.herokuapp.com/api/orders/${this.state.order.id}`, {
                         method: "PATCH",
                         headers: {
                             'content-type': "application/json",
@@ -135,7 +135,7 @@ export class OrderProvider extends React.Component{
 
                 } else{
 
-                    return fetch("http://localhost:8000/api/orders", {
+                    return fetch("https://vast-escarpment-62007.herokuapp.com/api/orders", {
                         method: "POST",
                         headers: {
                             'content-type': "application/json",
@@ -187,7 +187,7 @@ export class OrderProvider extends React.Component{
 
                 if(method === "POST"){
 
-                    return fetch("http://localhost:8000/api/orderitems", {
+                    return fetch("https://vast-escarpment-62007.herokuapp.com/api/orderitems", {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -209,7 +209,7 @@ export class OrderProvider extends React.Component{
 
                     order.id = id;
 
-                    return fetch(`http://localhost:8000/api/orderitems/${order.id}`, {
+                    return fetch(`https://vast-escarpment-62007.herokuapp.com/api/orderitems/${order.id}`, {
                         method,
                         headers: {
                             'content-type': "application/json",
@@ -234,7 +234,7 @@ export class OrderProvider extends React.Component{
     removeItem = async (id)=>{
         return UserToken.getToken()
             .then( token => {
-                return fetch(`http://localhost:8000/api/orderitems/${id}`, {
+                return fetch(`https://vast-escarpment-62007.herokuapp.com/api/orderitems/${id}`, {
                         method: "DELETE",
                         headers: {
                             'content-type': "application/json",
@@ -264,7 +264,7 @@ export class OrderProvider extends React.Component{
         return UserToken.getToken()
             .then( token => {
 
-                return fetch(`http://localhost:8000/api/orders/${order.id}`, {
+                return fetch(`https://vast-escarpment-62007.herokuapp.com/api/orders/${order.id}`, {
                     method: "PATCH",
                     headers: {
                         'content-type': "application/json",
@@ -290,7 +290,7 @@ export class OrderProvider extends React.Component{
     cancelOrder = async (order)=>{
         return UserToken.getToken()
             .then( token => {
-                return fetch(`http://localhost:8000/api/orders/${order.id}`, {
+                return fetch(`https://vast-escarpment-62007.herokuapp.com/api/orders/${order.id}`, {
                     method: "DELETE",
                     headers: {
                         'content-type': "application/json",

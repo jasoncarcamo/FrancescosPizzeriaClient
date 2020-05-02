@@ -151,7 +151,7 @@ export default class ResetPassword extends React.Component{
         UserToken.getToken()
             .then( token => {
 
-                fetch(`http://localhost:8000/api/login`, {
+                fetch(`https://vast-escarpment-62007.herokuapp.com/api/login`, {
                     method: "POST",
                     headers: {
                         'content-type': "application/json"
@@ -171,7 +171,7 @@ export default class ResetPassword extends React.Component{
                     })
                     .then( resData => {
                         
-                        fetch(`http://localhost:8000/api/users/${this.props.id}`, {
+                        fetch(`https://vast-escarpment-62007.herokuapp.com/api/users/${this.props.id}`, {
                             method: "PATCH",
                             headers: {
                                 'content-type': "application/json",

@@ -160,7 +160,7 @@ export default class EditProfile extends React.Component{
         UserToken.getToken()
             .then( token => {
 
-                fetch(`http://localhost:8000/api/users/${this.state.user.id}`, {
+                fetch(`https://vast-escarpment-62007.herokuapp.com/api/users/${this.state.user.id}`, {
                     method: "PATCH", 
                     headers: {
                         'content-type': "application/json",
