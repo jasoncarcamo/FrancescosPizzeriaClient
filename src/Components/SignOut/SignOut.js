@@ -39,7 +39,8 @@ export default class SignOut extends React.Component{
                             margin: 0,
                             paddingHorizontal: 12,
                             paddingVertical: 16,
-                            textAlign: "center"
+                            textAlign: "center",
+                            color: "white"
                         }}>Sign out</Text>
                 </TouchableOpacity>
             </View>
