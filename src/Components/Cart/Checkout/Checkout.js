@@ -17,21 +17,37 @@ export default class Checkout extends React.Component{
         return (
             <View
                 style={{
-                    marginVertical: 20
+                    marginVertical: 20,
+                    
                 }}>
-                <Text>Order type: {this.context.orderContext.orderType}</Text>
+                <Text style={{
+                    textAlign: "center",
+                    fontSize: 20
+                }}>Order type: {this.context.orderContext.orderType}</Text>
 
-                {this.context.orderContext.orderType == "Delivery" ? <Text>Delivery address: {this.context.orderContext.address}</Text> : <View></View>}
+                {this.context.orderContext.orderType == "Delivery" ? <Text style={{
+                    textAlign: "center",
+                    fontSize: 16
+                }}>Delivery address: {this.context.orderContext.address}</Text> : <View></View>}
             </View>
         )
     }
 
     renderUserInfo = ()=>{
         return (
+            
             <View>
-                <Text>Name: {this.context.userContext.user.firstName} {this.context.userContext.user.lastName}</Text>
+                <Text style={{
+                    textAlign: "center",
+                    marginVertical: 20,
+                    fontSize: 16
+                }}>Name: {this.context.userContext.user.firstName} {this.context.userContext.user.lastName}</Text>
 
-                <Text>Mobile number: {this.context.userContext.user.mobileNumber}</Text>
+                <Text style={{
+                    textAlign: "center",
+                    marginVertical: 20,
+                    fontSize: 16
+                }}>Mobile number: {this.context.userContext.user.mobileNumber}</Text>
             </View>
         )
     }
@@ -69,7 +85,8 @@ export default class Checkout extends React.Component{
             <View
                 style={{
                     justifyContent: "space-between",
-                    alignItems: "center"
+                    alignItems: "center",
+                    marginVertical: 25
                 }}>
                 <TouchableOpacity
                     title="Edit items"
@@ -136,8 +153,15 @@ export default class Checkout extends React.Component{
 
     renderOrderComplete = ()=>{
         return (
-            <View>
-                <Text>Order had been placed</Text>
+            <View style={{
+                marginTop: 25
+            }}>
+                <Text style={{
+                    textAlign: "center",
+                    marginTop: 20,
+                    marginBottom: 35,
+                    fontSize: 16
+                }}>Order has been placed</Text>
 
                 <Button
                     title="Ok"
@@ -149,8 +173,15 @@ export default class Checkout extends React.Component{
     render(){
 
         return (
-            <ScrollView>
-                <Text>Checking out</Text>
+            <ScrollView
+                style={{
+                    fontSize: 18,
+                    textAlign: "center"
+                }}>
+                <Text style={{
+                    marginTop: 25,
+                    fontSize: 18
+                }}></Text>
 
                 {!this.state.orderPlaced ? this.renderOrderInfo() : <View></View>}
 
