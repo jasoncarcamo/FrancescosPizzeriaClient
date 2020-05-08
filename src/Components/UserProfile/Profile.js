@@ -19,7 +19,6 @@ export default class Profile extends React.Component{
     static contextType = UserContext;
     
     render(){
-        console.log(this.context)
         return (
             <ScrollView>
 

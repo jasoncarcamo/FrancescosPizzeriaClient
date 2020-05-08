@@ -83,7 +83,6 @@ export default class Register extends React.Component{
     }
 
     handleMobileNumber = (text)=>{
-        console.log(text);
         this.setState({
             mobileNumber: text
         })
@@ -204,7 +203,6 @@ export default class Register extends React.Component{
         for( const key of Object.keys(userInfo)){
             
             if(key != "error" && key != "unformattedNumber"){
-                console.log(key)
                 if(userInfo[key] == ""){
                     valid = false;
                 };

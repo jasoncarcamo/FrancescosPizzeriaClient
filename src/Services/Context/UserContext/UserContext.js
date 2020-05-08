@@ -115,7 +115,7 @@ export class UserProvider extends React.Component{
             isLoggedIn: this.state.isLoggedIn,
             refreshUserContext: this.refreshUserContext
         };
-        console.log(this.state)
+        
         return (
             <UserContext.Provider value={value}>
                 {this.props.children}

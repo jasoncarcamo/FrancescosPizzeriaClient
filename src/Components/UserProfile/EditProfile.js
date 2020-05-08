@@ -189,7 +189,6 @@ export default class EditProfile extends React.Component{
     }
 
     render(){
-        console.log(this.state)
         return (
             <ScrollView>
 

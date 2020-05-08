@@ -20,7 +20,6 @@ export default class UserProfile extends React.Component{
     static contextType = UserContext;
     
     render(){
-        console.log(this.context)
         return (
             <Stack.Navigator initialRouteName="Profile" screenOptions={{
                 headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>   ,
