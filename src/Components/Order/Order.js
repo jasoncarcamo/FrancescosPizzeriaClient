@@ -21,6 +21,6 @@ export default class Order extends React.Component{
                 <Stack.Screen name="Delivery time" component={DeliveryOptions}></Stack.Screen>
                 <Stack.Screen name="Pick up time" component={PickUpOptions}></Stack.Screen>
             </Stack.Navigator>
-        )
+        );
     }
 }
