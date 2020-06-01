@@ -23,4 +23,4 @@ export default class Order extends React.Component{
             </Stack.Navigator>
         );
     };
-}
+};
