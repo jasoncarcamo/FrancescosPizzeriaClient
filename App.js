@@ -45,5 +45,5 @@ export default class App extends React.Component {
                 </MenuContext.Consumer>
             </MenuProvider>
             );
-        }
+        };
 }
