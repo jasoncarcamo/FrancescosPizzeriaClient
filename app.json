@@ -9,9 +9,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,12 +23,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.yourappname",
+      "bundleIdentifier": "com.FrancescosPizzeria",
       "buildNumber": "1.0.0"
     },
     "description": "",
     "android": {
-      "package": "com.mycompany.appname",
+      "package": "com.FrancescosPizzeria",
       "versionCode": 1
     }
   }

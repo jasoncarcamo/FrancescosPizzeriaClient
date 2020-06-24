@@ -35,7 +35,7 @@ export default class AppContainer extends React.Component{
             <>
                 <Drawer.Screen name="Profile" component={UserProfile}></Drawer.Screen>
                 <Drawer.Screen name="Cart" component={Cart} options={{
-                    drawerIcon: ()=> <CartAmount navigation={this.props.navigation} onPress={()=>this.props.navigation.closeDrawer()}/>
+                    drawerIcon: ({navigation})=> <CartAmount navigation={navigation} onPress={()=>this.props.navigation.closeDrawer()}/>
                 }}></Drawer.Screen>
                 <Drawer.Screen name="Sign out" component={SignOut}></Drawer.Screen>
             </>
