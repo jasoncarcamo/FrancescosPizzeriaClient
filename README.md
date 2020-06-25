@@ -21,3 +21,6 @@ Tracker coming soon...
 - PostgreSQL
 - RESTful API
 - ASP.NET CORE
+- JSON Web Tokens
+- Bcrypt.js
+- XSS.js
