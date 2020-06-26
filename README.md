@@ -1,6 +1,6 @@
 # Francescos Pizzeria mobile app
 
-#### Live site https://juliscleaningcompany.com/
+#### Online emulator https://snack.expo.io/@git/github.com/jasoncarcamo/FrancescosPizzeriaClient
 
 ## Description
 Full stack pizzeria mobile application. For android and coming soon for IOS
